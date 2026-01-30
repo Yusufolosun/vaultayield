@@ -6,14 +6,16 @@
 ;; (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.sip-010-trait)
 
 ;; ========================================
+;; ERROR CODES
+;; ========================================
+
+(define-constant ERR-NOT-AUTHORIZED (err u100))
+
+;; ========================================
 ;; CONSTANTS
 ;; ========================================
 
 (define-constant CONTRACT-OWNER tx-sender)
-
-(define-constant ERR-NOT-AUTHORIZED (err u100))
-(define-constant ERR-INSUFFICIENT-BALANCE (err u101))
-(define-constant ERR-INVALID-AMOUNT (err u102))
 
 ;; Token metadata
 (define-constant TOKEN-NAME "VaultaYield Shares")

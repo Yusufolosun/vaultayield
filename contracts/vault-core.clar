@@ -13,13 +13,12 @@
 
 ;; Error codes
 (define-constant ERR-NOT-AUTHORIZED (err u100))
-(define-constant ERR-INSUFFICIENT-BALANCE (err u101))
-(define-constant ERR-ZERO-AMOUNT (err u102))
-(define-constant ERR-INVALID-FEE-RATE (err u103))
-(define-constant ERR-CALCULATION-ERROR (err u104))
-(define-constant ERR-STACKING-ERROR (err u105))
-(define-constant ERR-HARVEST-ERROR (err u106))
-(define-constant ERR-COMPOUND-ERROR (err u107))
+(define-constant ERR-ZERO-AMOUNT (err u101))
+(define-constant ERR-INSUFFICIENT-SHARES (err u102))
+(define-constant ERR-CALCULATION-ERROR (err u103))
+(define-constant ERR-CONTRACT-PAUSED (err u104))
+(define-constant ERR-INSUFFICIENT-BALANCE (err u105))
+(define-constant ERR-INVALID-FEE-RATE (err u106))
 
 ;; Fee constraints
 (define-constant MAX-FEE-RATE u200) ;; 2% maximum (200 basis points)
@@ -37,10 +36,10 @@
 
 ;; Phase 2: PoX Stacking Integration
 (define-data-var stacking-strategy-contract (optional principal) none)
-(define-data-var harvest-manager-contract (optional principal) none)
-(define-data-var compound-engine-contract (optional principal) none)
 (define-data-var stacking-enabled bool false)
 (define-data-var min-stacking-threshold uint u100000000000000) ;; 100K STX minimum
+
+;; Phase 3: Will add harvest-manager and compound-engine references
 
 ;; ========================================
 ;; DATA MAPS
@@ -266,38 +265,22 @@
 ;; PUBLIC FUNCTIONS - PHASE 2 ADMIN CONFIG
 ;; ========================================
 
-(define-public (set-stacking-strategy (contract-address principal))
-  ;; Set the stacking strategy contract address
+(define-public (set-stacking-strategy (strategy-address principal))
+  ;; Set authorized stacking strategy contract
   (begin
     (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set stacking-strategy-contract (some contract-address))
+    (var-set stacking-strategy-contract (some strategy-address))
     (ok true)
   )
 )
 
-(define-public (set-harvest-manager (contract-address principal))
-  ;; Set the harvest manager contract address
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set harvest-manager-contract (some contract-address))
-    (ok true)
-  )
-)
+;; Phase 3: Will add set-harvest-manager and set-compound-engine functions
 
-(define-public (set-compound-engine (contract-address principal))
-  ;; Set the compound engine contract address
+(define-public (enable-stacking)
+  ;; Enable stacking feature
   (begin
     (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set compound-engine-contract (some contract-address))
-    (ok true)
-  )
-)
-
-(define-public (enable-stacking (enabled bool))
-  ;; Enable or disable stacking functionality
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set stacking-enabled enabled)
+    (var-set stacking-enabled true)
     (ok true)
   )
 )

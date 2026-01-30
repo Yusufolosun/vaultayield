@@ -13,10 +13,9 @@
 ;; Error codes
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-ZERO-AMOUNT (err u101))
-(define-constant ERR-SLIPPAGE-EXCEEDED (err u102))
+(define-constant ERR-SLIPPAGE-TOO-HIGH (err u102))
 (define-constant ERR-DEX-NOT-SET (err u103))
-(define-constant ERR-INVALID-SWAP (err u104))
-(define-constant ERR-HARVEST-REQUIRED (err u105))
+(define-constant ERR-SWAP-FAILED (err u104))
 
 ;; Default configurations
 (define-constant DEFAULT-SLIPPAGE-TOLERANCE u50) ;; 0.5% (in basis points: 50/10000)
@@ -39,9 +38,8 @@
 (define-data-var total-compounds uint u0)
 (define-data-var last-compound-height uint u0)
 
-;; Contract references
-(define-data-var harvest-manager-contract (optional principal) none)
-(define-data-var vault-core-contract (optional principal) none)
+;; Phase 3: Contract references
+;; Will add harvest-manager-contract and vault-core-contract references
 
 ;; Mock DEX mode (for testing without real DEX)
 (define-data-var mock-dex-mode bool true)
@@ -110,7 +108,7 @@
 )
 
 ;; ========================================
-;; PRIVATE FUNCTIONS
+;; PRIVATE HELPER FUNCTIONS
 ;; ========================================
 
 (define-private (calculate-performance-fee (stx-amount uint))
@@ -118,16 +116,7 @@
   (/ (* stx-amount PERFORMANCE-FEE-BPS) BASIS_POINTS)
 )
 
-(define-private (check-slippage (expected-stx uint) (actual-stx uint))
-  ;; Verify actual STX received is within slippage tolerance
-  (let
-    (
-      (tolerance (var-get slippage-tolerance))
-      (min-acceptable (- expected-stx (/ (* expected-stx tolerance) BASIS_POINTS)))
-    )
-    (>= actual-stx min-acceptable)
-  )
-)
+;; Phase 3: Will add slippage checking for real DEX integration
 
 ;; ========================================
 ;; PUBLIC FUNCTIONS - Placeholder Stubs
@@ -154,7 +143,7 @@
     ;; Placeholder for Phase 2
     (let
       (
-        (estimated-result (unwrap! (calculate-compound-impact btc-amount) ERR-INVALID-SWAP))
+        (estimated-result (unwrap! (calculate-compound-impact btc-amount) ERR-SWAP-FAILED))
       )
       (print {
         event: "compound-requested",
@@ -188,7 +177,7 @@
       )
       
       ;; Verify reasonable outcome
-      (asserts! (> gross-stx u0) ERR-INVALID-SWAP)
+      (asserts! (> gross-stx u0) ERR-SWAP-FAILED)
       
       ;; Record compound history
       (map-set compound-history compound-id {
@@ -245,29 +234,13 @@
   ;; Update slippage tolerance (max 5%)
   (begin
     (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (asserts! (<= new-tolerance MAX-SLIPPAGE) ERR-SLIPPAGE-EXCEEDED)
+    (asserts! (<= new-tolerance MAX-SLIPPAGE) ERR-SLIPPAGE-TOO-HIGH)
     (var-set slippage-tolerance new-tolerance)
     (ok true)
   )
 )
 
-(define-public (set-harvest-manager (manager principal))
-  ;; Set authorized harvest-manager contract
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set harvest-manager-contract (some manager))
-    (ok true)
-  )
-)
-
-(define-public (set-vault-core (vault principal))
-  ;; Set authorized vault-core contract
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set vault-core-contract (some vault))
-    (ok true)
-  )
-)
+;; Phase 3: Will add set-harvest-manager and set-vault-core admin functions
 
 (define-public (set-mock-exchange-rate (rate uint))
   ;; Update mock exchange rate for testing

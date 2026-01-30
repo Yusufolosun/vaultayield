@@ -38,11 +38,8 @@
 
 ;; Stacking status tracking
 (define-data-var is-stacking bool false)
-(define-data-var last-stacking-timestamp uint u0)
 
-;; BTC reward address (where PoX sends BTC)
-;; Using 33-byte format for compressed public key
-(define-data-var reward-btc-address (buff 33) 0x000000000000000000000000000000000000000000000000000000000000000000)
+;; Phase 3: Will add BTC reward address configuration
 
 ;; Authorized vault-core contract
 (define-data-var vault-core-contract (optional principal) none)
@@ -121,7 +118,6 @@
     ;; Update stacking state
     (var-set is-stacking true)
     (var-set stacked-amount amount)
-    (var-set last-stacking-timestamp block-height)
     
     ;; Calculate unlock cycle (current + cycles)
     ;; In real implementation, would query PoX for current cycle
@@ -230,11 +226,4 @@
   )
 )
 
-(define-public (set-reward-btc-address (new-address (buff 33)))
-  ;; Update BTC reward address
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set reward-btc-address new-address)
-    (ok true)
-  )
-)
+;; Phase 3: Will add set-reward-btc-address function

@@ -12,11 +12,10 @@
 
 ;; Error codes
 (define-constant ERR-NOT-AUTHORIZED (err u100))
-(define-constant ERR-ZERO-AMOUNT (err u101))
-(define-constant ERR-CYCLE-NOT-FOUND (err u102))
-(define-constant ERR-CYCLE-ALREADY-HARVESTED (err u103))
+(define-constant ERR-INVALID-CYCLE (err u101))
+(define-constant ERR-ALREADY-RECORDED (err u103))
 (define-constant ERR-TOO-SOON (err u104))
-(define-constant ERR-NO-PENDING-REWARDS (err u105))
+(define-constant ERR-ZERO-AMOUNT (err u105))
 
 ;; Harvest timing
 (define-constant DEFAULT-HARVEST-INTERVAL u144) ;; ~1 day in blocks (10 min blocks)
@@ -36,8 +35,7 @@
 (define-data-var harvest-interval uint DEFAULT-HARVEST-INTERVAL)
 (define-data-var last-harvest-height uint u0)
 
-;; Authorized contracts
-(define-data-var stacking-strategy-contract (optional principal) none)
+;; Phase 3: Contract references
 (define-data-var compound-engine-contract (optional principal) none)
 
 ;; ========================================
@@ -153,8 +151,8 @@
   (begin
     ;; Validation checks
     (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (asserts! (> btc-amount u0) ERR-ZERO-AMOUNT)
-    (asserts! (not (is-cycle-harvested cycle-id)) ERR-CYCLE-ALREADY-HARVESTED)
+    (asserts! (> btc-amount u0) ERR-INVALID-CYCLE) ;; Reusing ERR-INVALID-CYCLE for zero amount for now
+    (asserts! (not (is-cycle-harvested cycle-id)) ERR-ALREADY-RECORDED)
     
     ;; Record reward amount
     (map-set cycle-rewards cycle-id btc-amount)
@@ -189,17 +187,13 @@
 )
 
 ;; ========================================
+;; CONTRACT REFERENCES (Phase 3)
+;; ========================================
+;; Phase 3: Will add references to stacking-strategy and compound-engine
+
+;; ========================================
 ;; ADMIN FUNCTIONS
 ;; ========================================
-
-(define-public (set-stacking-strategy (strategy-contract principal))
-  ;; Set authorized stacking-strategy contract
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
-    (var-set stacking-strategy-contract (some strategy-contract))
-    (ok true)
-  )
-)
 
 (define-public (set-compound-engine (compound-contract principal))
   ;; Set authorized compound-engine contract
