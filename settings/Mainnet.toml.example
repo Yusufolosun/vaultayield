@@ -1,0 +1,21 @@
+[network]
+name = "mainnet"
+stacks_node_rpc_address = "https://stacks-node-api.mainnet.stacks.co"
+deployment_fee_rate = 10
+
+[accounts.deployer]
+mnemonic = "your 24 word mnemonic phrase goes here in quotes"
+# Example:
+# mnemonic = "word1 word2 word3 ... word24"
+
+# CRITICAL: This file contains MAINNET credentials
+# NEVER commit this file to git (.gitignore protects it)
+# Use a DIFFERENT mnemonic than testnet for security
+# Keep backups in a secure location
+
+# WARNING: Mainnet deployments use real STX
+# Double-check everything before deploying
+
+# You can add additional accounts if needed:
+# [accounts.wallet_1]
+# mnemonic = "another 24 word mnemonic phrase"

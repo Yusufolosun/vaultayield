@@ -1,0 +1,19 @@
+[network]
+name = "testnet"
+stacks_node_rpc_address = "https://stacks-node-api.testnet.stacks.co"
+deployment_fee_rate = 10
+
+[accounts.deployer]
+mnemonic = "your 24 word mnemonic phrase goes here in quotes"
+# Example: 
+# mnemonic = "word1 word2 word3 ... word24"
+
+# IMPORTANT: This file contains sensitive credentials
+# NEVER commit this file to git (.gitignore protects it)
+# Get your mnemonic from your Stacks wallet:
+# - Hiro Wallet: Settings → View Secret Key
+# - Leather Wallet: Settings → Backup Secret Key
+
+# You can add additional accounts if needed:
+# [accounts.wallet_1]
+# mnemonic = "another 24 word mnemonic phrase"
