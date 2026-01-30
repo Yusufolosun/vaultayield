@@ -28,7 +28,7 @@
 ;; DATA VARIABLES
 ;; ========================================
 
-;; DEX contract for BTC→STX swaps
+;; DEX contract for BTC->STX swaps
 (define-data-var dex-contract (optional principal) none)
 
 ;; Slippage protection
