@@ -122,15 +122,45 @@
 )
 
 (define-public (manual-record-reward (cycle-id uint) (btc-amount uint))
-  ;; TODO: Implement manual reward recording
-  ;; Admin fallback for manual entry
-  (ok true)
+  ;; Manually record BTC rewards for a cycle
+  ;; Admin-only fallback function
+  ;; Cannot overwrite existing records
+  (begin
+    ;; Validation checks
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (asserts! (> btc-amount u0) ERR-ZERO-AMOUNT)
+    (asserts! (not (is-cycle-harvested cycle-id)) ERR-CYCLE-ALREADY-HARVESTED)
+    
+    ;; Record reward amount
+    (map-set cycle-rewards cycle-id btc-amount)
+    (map-set cycle-harvested cycle-id true)
+    
+    ;; Update totals
+    (var-set total-btc-harvested (+ (var-get total-btc-harvested) btc-amount))
+    (var-set last-harvest-cycle cycle-id)
+    (var-set last-harvest-height block-height)
+    
+    ;; Emit harvest event
+    (print {
+      event: "reward-recorded-manually",
+      cycle-id: cycle-id,
+      btc-amount: btc-amount,
+      total-harvested: (var-get total-btc-harvested),
+      timestamp: block-height
+    })
+    
+    (ok btc-amount)
+  )
 )
 
 (define-public (get-pending-rewards)
-  ;; TODO: Implement pending rewards calculation
-  ;; Calculate unharvested rewards
+  ;; Calculate unharvested BTC rewards
+  ;; For Phase 2: Returns u0 (manual reporting only)
+  ;; In Phase 3: Will query actual pending rewards
   (ok u0)
+  ;; TODO Phase 3: Implement automated reward detection
+  ;; Query stacking-strategy for completed cycles
+  ;; Calculate rewards not yet harvested
 )
 
 ;; ========================================
