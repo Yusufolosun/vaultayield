@@ -21,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/Yusufolosun/vaultayield/issues"
   },
-  "homepage": "https://github.com/Yusufolosun/vaultayield#readme"
+  "homepage": "https://github.com/Yusufolosun/vaultayield#readme",
+  "dependencies": {
+    "@stacks/wallet-sdk": "^7.2.0",
+    "node-fetch": "^2.7.0",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.1.0",
+    "typescript": "^5.9.3"
+  }
 }

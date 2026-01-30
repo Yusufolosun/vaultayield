@@ -1,26 +1,47 @@
-import { StacksTestnet } from "@stacks/network";
+import { STACKS_TESTNET } from "@stacks/network";
 import {
     makeContractDeploy,
     broadcastTransaction,
     AnchorMode,
-    PostConditionMode,
 } from "@stacks/transactions";
-import { readFileSync } from "fs";
+import { generateWallet, getStxAddress } from "@stacks/wallet-sdk";
+import { readFileSync, writeFileSync } from "fs";
 import * as path from "path";
+import * as toml from "toml";
+
+console.log("🚀 Starting VaultaYield Testnet Deployment Script...\n");
 
 // ========================================
 // CONFIGURATION
 // ========================================
 
-const NETWORK = new StacksTestnet();
+const NETWORK = STACKS_TESTNET;
 
-// IMPORTANT: Set your private key here or use environment variable
-const DEPLOYER_KEY = process.env.DEPLOYER_PRIVATE_KEY || "";
+const TESTNET_SETTINGS_PATH = path.join(__dirname, "..", "settings", "Testnet.toml");
 
-if (!DEPLOYER_KEY) {
-    console.error("❌ Error: DEPLOYER_PRIVATE_KEY environment variable not set");
-    console.log("Set it with: export DEPLOYER_PRIVATE_KEY=your_testnet_private_key");
-    process.exit(1);
+console.log(`📁 Reading configuration from: ${TESTNET_SETTINGS_PATH}`);
+
+// Read mnemonic from settings/Testnet.toml
+let mnemonic: string;
+try {
+    const tomlContent = readFileSync(TESTNET_SETTINGS_PATH, "utf-8");
+    console.log("✅ File read successfully");
+
+    const config: any = toml.parse(tomlContent);
+    console.log("✅ TOML parsed successfully");
+
+    mnemonic = config?.accounts?.deployer?.mnemonic;
+    if (!mnemonic) {
+        console.error("❌ No mnemonic found in settings/Testnet.toml");
+        throw new Error("Mnemonic not found in configuration");
+    }
+    console.log("✅ Mnemonic loaded from settings/Testnet.toml\n");
+} catch (error) {
+    console.error("❌ Error reading settings/Testnet.toml:", error);
+    console.log("\nMake sure settings/Testnet.toml exists with:");
+    console.log("[accounts.deployer]");
+    console.log('mnemonic = "your 24 words here"');
+    throw error;
 }
 
 // Contract deployment order (dependencies first)
@@ -33,13 +54,14 @@ const CONTRACTS = [
     { name: "vault-core", path: "contracts/vault-core.clar" },
 ];
 
-// ========================================
+// ======================================== 
 // DEPLOYMENT FUNCTIONS
 // ========================================
 
 async function deployContract(
     contractName: string,
     contractPath: string,
+    deployerKey: string,
     nonce: number
 ): Promise<string> {
     try {
@@ -52,10 +74,9 @@ async function deployContract(
         const txOptions = {
             contractName,
             codeBody,
-            senderKey: DEPLOYER_KEY,
+            senderKey: deployerKey,
             network: NETWORK,
             anchorMode: AnchorMode.Any,
-            postConditionMode: PostConditionMode.Allow,
             nonce: BigInt(nonce),
             fee: BigInt(250000), // 0.25 STX fee
         };
@@ -63,19 +84,21 @@ async function deployContract(
         const transaction = await makeContractDeploy(txOptions);
 
         // Broadcast transaction
-        const broadcastResponse = await broadcastTransaction(transaction, NETWORK);
+        const broadcastResponse = await broadcastTransaction({
+            transaction,
+            network: NETWORK,
+        });
 
         if ("error" in broadcastResponse) {
             throw new Error(
-                `Broadcast error: ${broadcastResponse.error} - ${JSON.stringify(
-                    broadcastResponse
-                )}`
+                `Broadcast error: ${broadcastResponse.error} - ${(broadcastResponse as any).reason || ""
+                } `
             );
         }
 
         const txId = broadcastResponse.txid;
         console.log(`✅ ${contractName} deployed!`);
-        console.log(`   TxID: ${txId}`);
+        console.log(`   TxID: ${txId} `);
         console.log(
             `   Explorer: https://explorer.hiro.so/txid/${txId}?chain=testnet`
         );
@@ -87,8 +110,11 @@ async function deployContract(
     }
 }
 
-async function waitForConfirmation(txId: string): Promise<void> {
-    console.log(`⏳ Waiting for confirmation...`);
+async function waitForConfirmation(
+    txId: string,
+    contractName: string
+): Promise<void> {
+    console.log(`⏳ Waiting for ${contractName} confirmation...`);
 
     const maxAttempts = 30;
     const delayMs = 10000; // 10 seconds
@@ -100,19 +126,25 @@ async function waitForConfirmation(txId: string): Promise<void> {
             const response = await fetch(
                 `https://stacks-node-api.testnet.stacks.co/extended/v1/tx/${txId}`
             );
-            const data = await response.json();
+            const data: any = await response.json();
 
             if (data.tx_status === "success") {
-                console.log(`✅ Transaction confirmed!`);
+                console.log(`✅ ${contractName} confirmed!`);
                 return;
-            } else if (data.tx_status === "abort_by_response") {
-                throw new Error(`Transaction aborted: ${data.tx_result}`);
+            } else if (
+                data.tx_status === "abort_by_response" ||
+                data.tx_status === "abort_by_post_condition"
+            ) {
+                throw new Error(
+                    `Transaction aborted: ${data.tx_status} - ${data.tx_result?.repr || ""}`
+                );
             }
 
             console.log(
                 `   Attempt ${i + 1}/${maxAttempts}: Status = ${data.tx_status}`
             );
-        } catch (error) {
+        } catch (error: any) {
+            if (error.message?.includes("aborted")) throw error;
             console.log(
                 `   Attempt ${i + 1}/${maxAttempts}: Checking transaction...`
             );
@@ -127,26 +159,84 @@ async function waitForConfirmation(txId: string): Promise<void> {
 // ========================================
 
 async function main() {
-    console.log("========================================");
+    console.log("\n========================================");
     console.log("🚀 VaultaYield Testnet Deployment");
     console.log("========================================");
     console.log(`Network: Stacks Testnet`);
     console.log(`Total Contracts: ${CONTRACTS.length}`);
     console.log("========================================\n");
 
+    // Derive private key from mnemonic
+    console.log("🔑 Deriving private key from mnemonic...");
+    let deployerKey: string;
+    let deployerAddress: string;
+
+    try {
+        const wallet = await generateWallet({
+            secretKey: mnemonic,
+            password: "",
+        });
+
+        const account = wallet.accounts[0];
+        deployerKey = account.stxPrivateKey;
+
+        // Derive address using getStxAddress with network parameter
+        deployerAddress = getStxAddress(account, "testnet");
+
+        console.log(`✅ Deployer address: ${deployerAddress}`);
+        console.log(
+            `🔗 Check balance: https://explorer.hiro.so/address/${deployerAddress}?chain=testnet\n`
+        );
+    } catch (error) {
+        console.error("❌ Error deriving key from mnemonic:", error);
+        process.exit(1);
+    }
+
     const deployedContracts: Array<{ name: string; txId: string }> = [];
 
     try {
         // Get deployer account nonce
-        let nonce = 0;
+        console.log("📊 Fetching account nonce...\n");
+
+        let nonceStart = 0;
+        try {
+            // Use node-fetch for better SSL compatibility
+            const nodeFetch = await import('node-fetch').then(m => m.default || m);
+            const apiUrl = "https://stacks-node-api.testnet.stacks.co";
+            const response = await nodeFetch(
+                `${apiUrl}/v2/accounts/${deployerAddress}?proof=0`,
+                {
+                    headers: { 'Accept': 'application/json' }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const accountInfo: any = await response.json();
+            nonceStart = accountInfo.nonce || 0;
+            console.log(`✅ Current nonce: ${nonceStart}\n`);
+        } catch (error: any) {
+            console.warn(`⚠️  Warning: Could not fetch nonce (${error.message})`);
+            console.log("Starting with nonce 0 (may fail if account has transactions)\n");
+            nonceStart = 0;
+        }
+
+        let nonce = nonceStart;
 
         // Deploy each contract
         for (const contract of CONTRACTS) {
-            const txId = await deployContract(contract.name, contract.path, nonce);
+            const txId = await deployContract(
+                contract.name,
+                contract.path,
+                deployerKey,
+                nonce
+            );
             deployedContracts.push({ name: contract.name, txId });
 
             // Wait for confirmation before deploying next contract
-            await waitForConfirmation(txId);
+            await waitForConfirmation(txId, contract.name);
 
             nonce++;
 
@@ -162,31 +252,28 @@ async function main() {
         deployedContracts.forEach(({ name, txId }) => {
             console.log(`\n  ${name}:`);
             console.log(`    TxID: ${txId}`);
-            console.log(`    Explorer: https://explorer.hiro.so/txid/${txId}?chain=testnet`);
+            console.log(
+                `    Explorer: https://explorer.hiro.so/txid/${txId}?chain=testnet`
+            );
         });
 
         console.log("\n========================================");
         console.log("⚙️  NEXT STEPS:");
         console.log("========================================");
         console.log("1. Verify contracts on Stacks Explorer");
-        console.log("2. Configure vault-core with Phase 2 contract addresses:");
-        console.log("   - set-stacking-strategy");
-        console.log("   - set-harvest-manager");
-        console.log("   - set-compound-engine");
-        console.log("   - enable-stacking");
+        console.log("2. Configure vault-core with Phase 2 contract addresses");
         console.log("3. Run testnet integration tests");
-        console.log("4. Test deposit-with-stacking functionality");
         console.log("========================================\n");
 
         // Save deployment info
         const deploymentInfo = {
             network: "testnet",
             timestamp: new Date().toISOString(),
+            deployer: deployerAddress,
             contracts: deployedContracts,
         };
 
-        const fs = require("fs");
-        fs.writeFileSync(
+        writeFileSync(
             "deployment-testnet.json",
             JSON.stringify(deploymentInfo, null, 2)
         );
