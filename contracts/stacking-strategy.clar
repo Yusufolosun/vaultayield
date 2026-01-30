@@ -104,9 +104,57 @@
 ;; Full implementation will follow in subsequent commits
 
 (define-public (delegate-vault-stx (amount uint) (cycles uint))
-  ;; TODO: Implement delegation logic
-  ;; Will integrate with PoX-4 contract
-  (ok true)
+  ;; Delegate STX to pool operator for PoX stacking
+  ;; Only callable by authorized vault-core contract
+  (let
+    (
+      (operator (var-get pool-operator))
+      (current-stacking (var-get is-stacking))
+    )
+    ;; Validation checks
+    (asserts! (is-authorized-vault) ERR-NOT-AUTHORIZED)
+    (asserts! (not current-stacking) ERR-ALREADY-STACKING)
+    (asserts! (>= amount MIN-STACKING-AMOUNT) ERR-INSUFFICIENT-AMOUNT)
+    (asserts! (and (>= cycles MIN-CYCLES) (<= cycles MAX-CYCLES)) ERR-INVALID-CYCLES)
+    (asserts! (is-some operator) ERR-INVALID-POOL)
+    
+    ;; Update stacking state
+    (var-set is-stacking true)
+    (var-set stacked-amount amount)
+    (var-set last-stacking-timestamp block-height)
+    
+    ;; Calculate unlock cycle (current + cycles)
+    ;; In real implementation, would query PoX for current cycle
+    ;; For now, using block height as approximation
+    (let
+      (
+        (current-pox-cycle (/ block-height u2100)) ;; ~2100 blocks per cycle
+        (new-unlock-cycle (+ current-pox-cycle cycles))
+      )
+      (var-set current-cycle current-pox-cycle)
+      (var-set unlock-cycle new-unlock-cycle)
+      
+      ;; Emit stacking event
+      (print {
+        event: "stacking-initiated",
+        amount: amount,
+        cycles: cycles,
+        unlock-cycle: new-unlock-cycle,
+        pool-operator: operator,
+        timestamp: block-height
+      })
+      
+      ;; TODO: Integrate with PoX-4 delegate-stx function
+      ;; (contract-call? 'ST000000000000000000002AMW42H.pox-4 delegate-stx
+      ;;   amount
+      ;;   (unwrap-panic operator)
+      ;;   (unwrap-panic (some unlock-height))
+      ;;   (some (var-get reward-btc-address))
+      ;; )
+      
+      (ok true)
+    )
+  )
 )
 
 (define-public (revoke-delegation)
