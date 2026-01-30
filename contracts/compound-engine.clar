@@ -163,7 +163,7 @@
         note: "Real DEX integration in Phase 3, use execute-compound-mock for testing"
       })
       
-      (err ERR-DEX-NOT-SET)
+      ERR-DEX-NOT-SET
     )
   )
 )
