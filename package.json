@@ -9,7 +9,9 @@
   },
   "scripts": {
     "test": "clarinet test",
-    "test:production": "npx ts-node scripts/production-test.ts"
+    "test:production": "npx ts-node scripts/production-test.ts",
+    "deploy:mainnet": "npx ts-node scripts/deploy-mainnet.ts",
+    "configure:mainnet": "npx ts-node scripts/configure-mainnet.ts"
   },
   "repository": {
     "type": "git",
