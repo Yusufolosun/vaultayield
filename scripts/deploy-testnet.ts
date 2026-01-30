@@ -195,26 +195,26 @@ async function main() {
     const deployedContracts: Array<{ name: string; txId: string }> = [];
 
     try {
-        // Get deployer account nonce
+        // Get deployer account nonce  
         console.log("📊 Fetching account nonce...\n");
 
         let nonceStart = 0;
         try {
-            // Use node-fetch for better SSL compatibility
-            const nodeFetch = await import('node-fetch').then(m => m.default || m);
-            const apiUrl = "https://stacks-node-api.testnet.stacks.co";
-            const response = await nodeFetch(
-                `${apiUrl}/v2/accounts/${deployerAddress}?proof=0`,
-                {
-                    headers: { 'Accept': 'application/json' }
-                }
-            );
+            // Use curl as workaround for Node.js SSL issues on Windows
+            const { exec } = await import('child_process');
+            const { promisify } = await import('util');
+            const execAsync = promisify(exec);
 
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            const apiUrl = "https://stacks-node-api.testnet.stacks.co";
+            const curlCommand = `curl -s "${apiUrl}/v2/accounts/${deployerAddress}?proof=0"`;
+
+            const { stdout, stderr } = await execAsync(curlCommand);
+
+            if (stderr && !stdout) {
+                throw new Error(`Curl error: ${stderr}`);
             }
 
-            const accountInfo: any = await response.json();
+            const accountInfo: any = JSON.parse(stdout);
             nonceStart = accountInfo.nonce || 0;
             console.log(`✅ Current nonce: ${nonceStart}\n`);
         } catch (error: any) {
