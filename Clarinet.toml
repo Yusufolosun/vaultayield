@@ -20,6 +20,11 @@ path = "contracts/fee-collector.clar"
 clarity_version = 2
 epoch = "2.4"
 
+[contracts.stacking-strategy]
+path = "contracts/stacking-strategy.clar"
+clarity_version =  2
+epoch = "2.4"
+
 [repl]
 costs_version = 2
 parser_version = 2
