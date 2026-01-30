@@ -22,7 +22,12 @@ epoch = "2.4"
 
 [contracts.stacking-strategy]
 path = "contracts/stacking-strategy.clar"
-clarity_version =  2
+clarity_version = 2
+epoch = "2.4"
+
+[contracts.harvest-manager]
+path = "contracts/harvest-manager.clar"
+clarity_version = 2
 epoch = "2.4"
 
 [repl]
