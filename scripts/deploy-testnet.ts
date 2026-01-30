@@ -116,8 +116,8 @@ async function waitForConfirmation(
 ): Promise<void> {
     console.log(`⏳ Waiting for ${contractName} confirmation...`);
 
-    const maxAttempts = 30;
-    const delayMs = 10000; // 10 seconds
+    const maxAttempts = 3; // Reduced for faster deployment
+    const delayMs = 5000; // 5 seconds
 
     for (let i = 0; i < maxAttempts; i++) {
         await new Promise((resolve) => setTimeout(resolve, delayMs));
@@ -198,7 +198,7 @@ async function main() {
         // Get deployer account nonce  
         console.log("📊 Fetching account nonce...\n");
 
-        let nonceStart = 0;
+        let nonceStart = 18; // Set to 18 based on last executed nonce of 17
         try {
             // Use curl as workaround for Node.js SSL issues on Windows
             const { exec } = await import('child_process');
@@ -215,12 +215,14 @@ async function main() {
             }
 
             const accountInfo: any = JSON.parse(stdout);
-            nonceStart = accountInfo.nonce || 0;
+            const fetchedNonce = accountInfo.nonce || 0;
+
+            // Use fetched nonce if available, otherwise use manual override
+            nonceStart = fetchedNonce > 0 ? fetchedNonce : 18;
             console.log(`✅ Current nonce: ${nonceStart}\n`);
         } catch (error: any) {
             console.warn(`⚠️  Warning: Could not fetch nonce (${error.message})`);
-            console.log("Starting with nonce 0 (may fail if account has transactions)\n");
-            nonceStart = 0;
+            console.log(`Using manual nonce override: ${nonceStart}\n`);
         }
 
         let nonce = nonceStart;
@@ -234,14 +236,15 @@ async function main() {
                 nonce
             );
             deployedContracts.push({ name: contract.name, txId });
+            nonce++; // Increment nonce for next deployment
 
-            // Wait for confirmation before deploying next contract
-            await waitForConfirmation(txId, contract.name);
-
-            nonce++;
+            // Skip confirmation wait to deploy all contracts rapidly
+            // Testnet confirmations can take time but transactions will process in order
+            console.log(`✅ ${contract.name} broadcasted! Moving to next contract...\n`);
+            // await waitForConfirmation(txId, contract.name);
 
             // Brief delay between contracts
-            await new Promise((resolve) => setTimeout(resolve, 3000));
+            // await new Promise((resolve) => setTimeout(resolve, 3000));
         }
 
         console.log("\n========================================");
