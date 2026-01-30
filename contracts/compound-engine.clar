@@ -134,15 +134,97 @@
 ;; ========================================
 
 (define-public (execute-compound (btc-amount uint))
-  ;; TODO: Implement compound execution
-  ;; Will swap BTC for STX and re-stake
-  (ok true)
+  ;; Execute compound using real DEX integration
+  ;; Swaps BTC for STX and re-stakes
+  (begin
+    ;; Validation
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (asserts! (> btc-amount u0) ERR-ZERO-AMOUNT)
+    (asserts! (not (var-get mock-dex-mode)) ERR-DEX-NOT-SET)
+    (asserts! (is-some (var-get dex-contract)) ERR-DEX-NOT-SET)
+    
+    ;; TODO Phase 3: Implement real DEX integration
+    ;; For now, return error directing to use mock mode
+    ;; In Phase 3:
+    ;; 1. Call DEX contract to swap BTC for STX
+    ;; 2. Verify slippage tolerance
+    ;; 3. Calculate performance fee
+    ;; 4. Trigger re-staking
+    
+    ;; Placeholder for Phase 2
+    (let
+      (
+        (estimated-result (unwrap! (calculate-compound-impact btc-amount) ERR-INVALID-SWAP))
+      )
+      (print {
+        event: "compound-requested",
+        btc-amount: btc-amount,
+        estimated-stx: (get gross-stx estimated-result),
+        note: "Real DEX integration in Phase 3, use execute-compound-mock for testing"
+      })
+      
+      (err ERR-DEX-NOT-SET)
+    )
+  )
 )
 
 (define-public (execute-compound-mock (btc-amount uint))
-  ;; TODO: Implement mock compound for testing
-  ;; Simulates DEX swap without actual DEX
-  (ok true)
+  ;; Execute compound using mock DEX (for testing)
+  ;; Simulates BTC->STX swap without actual DEX integration
+  (begin
+    ;; Validation
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (asserts! (> btc-amount u0) ERR-ZERO-AMOUNT)
+    (asserts! (var-get mock-dex-mode) ERR-DEX-NOT-SET)
+    
+    ;; Calculate swap outcome using mock rate
+    (let
+      (
+        (exchange-rate (var-get mock-exchange-rate))
+        (gross-stx (/ (* btc-amount exchange-rate) u100000000)) ;; BTC sats to STX
+        (performance-fee (calculate-performance-fee gross-stx))
+        (net-stx (- gross-stx performance-fee))
+        (compound-id (+ (var-get total-compounds) u1))
+      )
+      
+      ;; Verify reasonable outcome
+      (asserts! (> gross-stx u0) ERR-INVALID-SWAP)
+      
+      ;; Record compound history
+      (map-set compound-history compound-id {
+        btc-amount: btc-amount,
+        stx-received: gross-stx,
+        fee-amount: performance-fee,
+        block-height: block-height
+      })
+      
+      ;; Update state
+      (var-set total-compounded-stx (+ (var-get total-compounded-stx) net-stx))
+      (var-set total-compounds compound-id)
+      (var-set last-compound-height block-height)
+      
+      ;; Emit compound event
+      (print {
+        event: "compound-executed-mock",
+        compound-id: compound-id,
+        btc-amount: btc-amount,
+        stx-received: gross-stx,
+        performance-fee: performance-fee,
+        net-stx: net-stx,
+        exchange-rate: exchange-rate,
+        timestamp: block-height
+      })
+      
+      ;; TODO: Trigger re-staking via stacking-strategy
+      ;; (contract-call? .stacking-strategy delegate-vault-stx net-stx cycles)
+      
+      (ok {
+        gross-stx: gross-stx,
+        performance-fee: performance-fee,
+        net-stx: net-stx
+      })
+    )
+  )
 )
 
 ;; ========================================
