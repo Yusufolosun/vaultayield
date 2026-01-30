@@ -21,9 +21,9 @@ Earn Bitcoin rewards automatically by depositing STX into VaultaYield. The proto
 
 ## 📊 Protocol Stats
 
-- **Status**: ✅ **Testnet Validated** (pending mainnet deployment)
-- **Test Results**: 98.2% core functionality success (55/56 tests)
-- **Total Tests**: 99 comprehensive on-chain transactions
+- **Status**: ✅ **Live on Mainnet** (v1.0.0)
+- **Deployment Date**: 2026-01-31
+- **Mainnet Address**: SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193
 - **Contracts Deployed**: 6 production-ready contracts
 - **Security**: Self-reviewed with comprehensive checklist
 
@@ -57,10 +57,17 @@ Compound Engine:    ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0.compound-engine
 Explorer: https://explorer.hiro.so/address/ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0?chain=testnet
 ```
 
-#### Mainnet
+#### Mainnet (Production)
 ```
-Status: Pending deployment
-Update this section after mainnet deployment completes
+Deployer:          SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193
+Vault Core:         SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193.vault-core-v1
+Vault Token:        SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193.vault-token
+Fee Collector:      SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193.fee-collector
+Stacking Strategy:  SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193.stacking-strategy
+Harvest Manager:    SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193.harvest-manager
+Compound Engine:    SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193.compound-engine
+
+Explorer: https://explorer.hiro.so/address/SP1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK0DYG193?chain=mainnet
 ```
 
 ---
@@ -260,7 +267,7 @@ See [Developer Guide](docs/developer-guide.md) for complete integration examples
 - Security self-review ✅
 - Mainnet deployment scripts ✅
 - Comprehensive documentation ✅
-- Mainnet deployment (pending)
+- Mainnet deployment ✅ (v1 architecture)
 
 ### 🔮 Phase 4: Future Enhancements
 - Frontend UI/UX
