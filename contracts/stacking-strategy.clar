@@ -158,13 +158,63 @@
 )
 
 (define-public (revoke-delegation)
-  ;; TODO: Implement revocation logic
-  (ok true)
+  ;; Revoke STX delegation from pool operator
+  ;; Can only be called when STX is unlocked
+  ;; Emergency function - admin only
+  (let
+    (
+      (stacking-status (var-get is-stacking))
+      (unlocked (is-unlocked))
+    )
+    ;; Validation checks
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (asserts! stacking-status ERR-NOT-STACKING)
+    (asserts! unlocked ERR-LOCKED)
+    
+    ;; Reset stacking state
+    (var-set is-stacking false)
+    (var-set stacked-amount u0)
+    (var-set unlock-cycle u0)
+    
+    ;; Emit revocation event
+    (print {
+      event: "delegation-revoked",
+      previous-amount: (var-get stacked-amount),
+      revoked-at-cycle: (var-get current-cycle),
+      timestamp: block-height
+    })
+    
+    ;; TODO: Integrate with PoX-4 revoke-delegate-stx function
+    ;; (contract-call? 'ST000000000000000000002AMW42H.pox-4 revoke-delegate-stx)
+    
+    (ok true)
+  )
 )
 
 (define-public (update-pool-operator (new-operator principal))
-  ;; TODO: Implement pool operator update
-  (ok true)
+  ;; Change pool operator address
+  ;; Cannot change during active stacking period
+  ;; Admin only
+  (let
+    (
+      (currently-stacking (var-get is-stacking))
+    )
+    ;; Validation checks
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (asserts! (not currently-stacking) ERR-LOCKED)
+    
+    ;; Update pool operator
+    (var-set pool-operator (some new-operator))
+    
+    ;; Emit update event
+    (print {
+      event: "pool-operator-updated",
+      new-operator: new-operator,
+      timestamp: block-height
+    })
+    
+    (ok true)
+  )
 )
 
 ;; ========================================
