@@ -2,7 +2,8 @@
 ;; VAULTAYIELD - VAULT SHARE TOKEN (SIP-010)
 ;; ========================================
 
-(impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.sip-010-trait)
+;; NOTE: Uncomment for testnet/mainnet deployment
+;; (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.sip-010-trait)
 
 ;; ========================================
 ;; CONSTANTS

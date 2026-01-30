@@ -10,7 +10,6 @@
 
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-ZERO-AMOUNT (err u101))
-(define-constant ERR-TRANSFER-FAILED (err u102))
 
 ;; ========================================
 ;; DATA VARIABLES

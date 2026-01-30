@@ -17,7 +17,6 @@
 (define-constant ERR-ZERO-AMOUNT (err u102))
 (define-constant ERR-INVALID-FEE-RATE (err u103))
 (define-constant ERR-CALCULATION-ERROR (err u104))
-(define-constant ERR-TRANSFER-FAILED (err u105))
 
 ;; Fee constraints
 (define-constant MAX-FEE-RATE u200) ;; 2% maximum (200 basis points)
@@ -97,43 +96,36 @@
   ;; Accept STX from user and mint vault shares
   (let
     (
-      (shares-result (calculate-shares-to-mint amount))
+      (shares-to-mint (unwrap! (calculate-shares-to-mint amount) ERR-CALCULATION-ERROR))
       (sender tx-sender)
     )
     ;; Validation
     (asserts! (not (var-get contract-paused)) ERR-NOT-AUTHORIZED)
     (asserts! (> amount u0) ERR-ZERO-AMOUNT)
     
-    ;; Calculate shares to mint
-    (match shares-result
-      shares-to-mint
-      (begin
-        ;; Transfer STX from user to contract
-        (try! (stx-transfer? amount sender (as-contract tx-sender)))
-        
-        ;; Update user shares
-        (map-set user-shares 
-          sender 
-          (+ (default-to u0 (map-get? user-shares sender)) shares-to-mint)
-        )
-        
-        ;; Update vault state
-        (var-set total-shares (+ (var-get total-shares) shares-to-mint))
-        (var-set total-assets (+ (var-get total-assets) amount))
-        
-        ;; Emit event (using print for Clarity)
-        (print {
-          event: "deposit",
-          user: sender,
-          amount: amount,
-          shares-minted: shares-to-mint,
-          timestamp: block-height
-        })
-        
-        (ok shares-to-mint)
-      )
-      error-code error-code
+    ;; Transfer STX from user to contract
+    (try! (stx-transfer? amount sender (as-contract tx-sender)))
+    
+    ;; Update user shares
+    (map-set user-shares 
+      sender 
+      (+ (default-to u0 (map-get? user-shares sender)) shares-to-mint)
     )
+    
+    ;; Update vault state
+    (var-set total-shares (+ (var-get total-shares) shares-to-mint))
+    (var-set total-assets (+ (var-get total-assets) amount))
+    
+    ;; Emit event (using print for Clarity)
+    (print {
+      event: "deposit",
+      user: sender,
+      amount: amount,
+      shares-minted: shares-to-mint,
+      timestamp: block-height
+    })
+    
+    (ok shares-to-mint)
   )
 )
 
@@ -143,47 +135,38 @@
     (
       (sender tx-sender)
       (user-balance (default-to u0 (map-get? user-shares sender)))
-      (stx-result (calculate-stx-to-return shares))
+      (gross-stx-amount (unwrap! (calculate-stx-to-return shares) ERR-CALCULATION-ERROR))
+      (fee-calculation (apply-withdrawal-fee gross-stx-amount))
+      (fee-amount (get fee fee-calculation))
+      (net-stx-amount (get net-amount fee-calculation))
     )
     ;; Validation
     (asserts! (not (var-get contract-paused)) ERR-NOT-AUTHORIZED)
     (asserts! (> shares u0) ERR-ZERO-AMOUNT)
     (asserts! (>= user-balance shares) ERR-INSUFFICIENT-BALANCE)
     
-    ;; Calculate STX to return
-    (match stx-result
-      gross-stx-amount
-      (let
-        (
-          (fee-calculation (apply-withdrawal-fee gross-stx-amount))
-          (fee-amount (get fee fee-calculation))
-          (net-stx-amount (get net-amount fee-calculation))
-        )
-        ;; Update user shares
-        (map-set user-shares sender (- user-balance shares))
-        
-        ;; Update vault state
-        (var-set total-shares (- (var-get total-shares) shares))
-        (var-set total-assets (- (var-get total-assets) gross-stx-amount))
-        (var-set fee-balance (+ (var-get fee-balance) fee-amount))
-        
-        ;; Transfer STX back to user
-        (try! (as-contract (stx-transfer? net-stx-amount tx-sender sender)))
-        
-        ;; Emit event
-        (print {
-          event: "withdrawal",
-          user: sender,
-          shares-burned: shares,
-          stx-returned: net-stx-amount,
-          fee-collected: fee-amount,
-          timestamp: block-height
-        })
-        
-        (ok net-stx-amount)
-      )
-      error-code error-code
-    )
+    ;; Update user shares
+    (map-set user-shares sender (- user-balance shares))
+    
+    ;; Update vault state
+    (var-set total-shares (- (var-get total-shares) shares))
+    (var-set total-assets (- (var-get total-assets) gross-stx-amount))
+    (var-set fee-balance (+ (var-get fee-balance) fee-amount))
+    
+    ;; Transfer STX back to user
+    (try! (as-contract (stx-transfer? net-stx-amount tx-sender sender)))
+    
+    ;; Emit event
+    (print {
+      event: "withdrawal",
+      user: sender,
+      shares-burned: shares,
+      stx-returned: net-stx-amount,
+      fee-collected: fee-amount,
+      timestamp: block-height
+    })
+    
+    (ok net-stx-amount)
   )
 )
 
