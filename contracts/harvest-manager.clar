@@ -116,9 +116,34 @@
 ;; ========================================
 
 (define-public (harvest-rewards)
-  ;; TODO: Implement harvest logic
-  ;; Will check for completed cycles and record rewards
-  (ok true)
+  ;; Harvest BTC rewards from completed stacking cycles
+  ;; Permissionless function (anyone can trigger)
+  ;; Implements cooldown to prevent spam
+  (begin
+    ;; Check harvest cooldown
+    (asserts! (can-harvest-now) ERR-TOO-SOON)
+    
+    ;; Update last harvest height
+    (var-set last-harvest-height block-height)
+    
+    ;; Emit harvest-attempted event
+    ;; In Phase 2: Manual recording via manual-record-reward
+    ;; In Phase 3: Will query PoX for actual rewards
+    (print {
+      event: "harvest-attempted",
+      timestamp: block-height,
+      last-harvest-cycle: (var-get last-harvest-cycle)
+    })
+    
+    ;; TODO Phase 3: Implement automated reward detection
+    ;; 1. Query stacking-strategy for current cycle
+    ;; 2. Check if cycles have completed since last harvest
+    ;; 3. Query PoX or Bitcoin for BTC received
+    ;; 4. Record rewards automatically
+    
+    ;; For Phase 2: Return success, actual rewards via manual-record-reward
+    (ok u0)
+  )
 )
 
 (define-public (manual-record-reward (cycle-id uint) (btc-amount uint))
