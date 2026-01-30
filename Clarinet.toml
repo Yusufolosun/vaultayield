@@ -1,0 +1,24 @@
+[project]
+name = "vaultayield"
+description = "Bitcoin-native yield vault for STX stacking"
+authors = ["Yusufolosun <olosun.m1904582@st.futminna.edu.ng>"]
+telemetry = false
+
+[contracts.vault-core]
+path = "contracts/vault-core.clar"
+clarity_version = 2
+epoch = "2.4"
+
+[contracts.vault-token]
+path = "contracts/vault-token.clar"
+clarity_version = 2
+epoch = "2.4"
+
+[contracts.fee-collector]
+path = "contracts/fee-collector.clar"
+clarity_version = 2
+epoch = "2.4"
+
+[repl]
+costs_version = 2
+parser_version = 2
