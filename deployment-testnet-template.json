@@ -1,0 +1,43 @@
+{
+    "network": "testnet",
+    "deployment_date": null,
+    "deployer_address": null,
+    "contracts": {
+        "vault-token": {
+            "txid": null,
+            "contract_id": null,
+            "deployed": false
+        },
+        "fee-collector": {
+            "txid": null,
+            "contract_id": null,
+            "deployed": false
+        },
+        "stacking-strategy": {
+            "txid": null,
+            "contract_id": null,
+            "deployed": false
+        },
+        "harvest-manager": {
+            "txid": null,
+            "contract_id": null,
+            "deployed": false
+        },
+        "compound-engine": {
+            "txid": null,
+            "contract_id": null,
+            "deployed": false
+        },
+        "vault-core": {
+            "txid": null,
+            "contract_id": null,
+            "deployed": false
+        }
+    },
+    "configuration": {
+        "stacking_enabled": false,
+        "stacking_threshold": "100000000000000",
+        "contracts_linked": false
+    },
+    "notes": "Template for testnet deployment tracking. Will be populated during deployment."
+}
