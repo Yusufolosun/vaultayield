@@ -23,8 +23,13 @@ pnpm-lock.yaml
 .env.*
 !.env.example
 *.env
-settings/Testnet.toml
-settings/Mainnet.toml
+
+# Protect ALL settings/*.toml files (contain mnemonics)
+settings/*.toml
+!settings/*.toml.example
+!settings/Devnet.toml
+
+# Other sensitive files
 deployment-testnet.json
 deployment-mainnet.json
 *.key
