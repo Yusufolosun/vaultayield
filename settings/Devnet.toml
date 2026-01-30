@@ -1,0 +1,24 @@
+[network]
+name = "devnet"
+deployment_fee_rate = 10
+
+[accounts.deployer]
+mnemonic = "fetch outside black test wash cover just actual execute nice door want airport betray quantum stamp fish act pen trust portion fatigue scissors vague"
+balance = 100000000000000
+
+[accounts.wallet_1]
+mnemonic = "spoil sock coyote include verify comic jacket gain beauty tank flush venture"
+balance = 100000000000000
+
+[accounts.wallet_2]
+mnemonic = "arrange scale orient half ugly kid bike twin magnet joke hurt fiber"
+balance = 100000000000000
+
+[accounts.wallet_3]
+mnemonic = "glide buffalo alarm mutual bracket drill virtual buddy hobby bird dolphin great"
+balance = 100000000000000
+
+[devnet]
+disable_bitcoin_explorer = true
+disable_stacks_explorer = true
+disable_stacks_api = true
