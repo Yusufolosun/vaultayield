@@ -1,0 +1,142 @@
+;; ========================================
+;; VAULTAYIELD - STACKING STRATEGY
+;; ========================================
+;; Manages STX stacking lifecycle via PoX delegation
+;; Handles cycle tracking, lock periods, and pool coordination
+
+;; ========================================
+;; CONSTANTS
+;; ========================================
+
+(define-constant CONTRACT-OWNER tx-sender)
+
+;; Error codes
+(define-constant ERR-NOT-AUTHORIZED (err u100))
+(define-constant ERR-ALREADY-STACKING (err u101))
+(define-constant ERR-INSUFFICIENT-AMOUNT (err u102))
+(define-constant ERR-INVALID-CYCLES (err u103))
+(define-constant ERR-LOCKED (err u104))
+(define-constant ERR-NOT-STACKING (err u105))
+(define-constant ERR-INVALID-POOL (err u106))
+
+;; Stacking constraints
+(define-constant MIN-STACKING-AMOUNT u100000000000) ;; 100K STX (100B micro-STX)
+(define-constant MAX-CYCLES u12)
+(define-constant MIN-CYCLES u1)
+
+;; ========================================
+;; DATA VARIABLES  
+;; ========================================
+
+;; Pool operator who aggregates and stakes our STX
+(define-data-var pool-operator (optional principal) none)
+
+;; Current stacking cycle information
+(define-data-var current-cycle uint u0)
+(define-data-var stacked-amount uint u0)
+(define-data-var unlock-cycle uint u0)
+
+;; Stacking status tracking
+(define-data-var is-stacking bool false)
+(define-data-var last-stacking-timestamp uint u0)
+
+;; BTC reward address (where PoX sends BTC)
+;; Using 33-byte format for compressed public key
+(define-data-var reward-btc-address (buff 33) 0x000000000000000000000000000000000000000000000000000000000000000000)
+
+;; Authorized vault-core contract
+(define-data-var vault-core-contract (optional principal) none)
+
+;; ========================================
+;; READ-ONLY FUNCTIONS
+;; ========================================
+
+(define-read-only (get-stacking-status)
+  ;; Return current stacking state
+  {
+    is-stacking: (var-get is-stacking),
+    amount: (var-get stacked-amount),
+    unlock-cycle: (var-get unlock-cycle),
+    current-cycle: (var-get current-cycle),
+    pool-operator: (var-get pool-operator)
+  }
+)
+
+(define-read-only (is-unlocked)
+  ;; Check if STX can be withdrawn
+  ;; Returns true if not stacking OR past unlock cycle
+  (if (var-get is-stacking)
+    (>= (var-get current-cycle) (var-get unlock-cycle))
+    true
+  )
+)
+
+(define-read-only (get-pool-operator)
+  ;; Return current pool operator
+  (var-get pool-operator)
+)
+
+(define-read-only (get-stacked-amount)
+  ;; Return amount currently stacked
+  (var-get stacked-amount)
+)
+
+(define-read-only (get-unlock-cycle)
+  ;; Return cycle when STX will unlock
+  (var-get unlock-cycle)
+)
+
+;; ========================================
+;; PRIVATE FUNCTIONS
+;; ========================================
+
+(define-private (is-authorized-vault)
+  ;; Check if caller is authorized vault-core contract
+  (match (var-get vault-core-contract)
+    vault-contract (is-eq contract-caller vault-contract)
+    false
+  )
+)
+
+;; ========================================
+;; PUBLIC FUNCTIONS - Placeholder Stubs
+;; ========================================
+;; Full implementation will follow in subsequent commits
+
+(define-public (delegate-vault-stx (amount uint) (cycles uint))
+  ;; TODO: Implement delegation logic
+  ;; Will integrate with PoX-4 contract
+  (ok true)
+)
+
+(define-public (revoke-delegation)
+  ;; TODO: Implement revocation logic
+  (ok true)
+)
+
+(define-public (update-pool-operator (new-operator principal))
+  ;; TODO: Implement pool operator update
+  (ok true)
+)
+
+;; ========================================
+;; ADMIN FUNCTIONS
+;; ========================================
+
+(define-public (set-vault-core (vault-contract principal))
+  ;; Set authorized vault-core contract
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (var-set vault-core-contract (some vault-contract))
+    (ok true)
+  )
+)
+
+(define-public (set-reward-btc-address (new-address (buff 33)))
+  ;; Update BTC reward address
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (var-set reward-btc-address new-address)
+    (ok true)
+  )
+)
