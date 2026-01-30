@@ -1,0 +1,5 @@
+node_modules/
+.clarinet/
+.vscode/
+*.log
+.env
