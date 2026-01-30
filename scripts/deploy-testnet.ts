@@ -45,8 +45,9 @@ try {
 }
 
 // Contract deployment order (dependencies first)
+// vault-token already deployed successfully with nonce 18
 const CONTRACTS = [
-    { name: "vault-token", path: "contracts/vault-token.clar" },
+    // { name: "vault-token", path: "contracts/vault-token.clar" }, // ALREADY DEPLOYED
     { name: "fee-collector", path: "contracts/fee-collector.clar" },
     { name: "stacking-strategy", path: "contracts/stacking-strategy.clar" },
     { name: "harvest-manager", path: "contracts/harvest-manager.clar" },
@@ -79,6 +80,7 @@ async function deployContract(
             anchorMode: AnchorMode.Any,
             nonce: BigInt(nonce),
             fee: BigInt(250000), // 0.25 STX fee
+            clarityVersion: 2, // CRITICAL: Specify Clarity 2 for as-contract support
         };
 
         const transaction = await makeContractDeploy(txOptions);
@@ -163,7 +165,7 @@ async function main() {
     console.log("🚀 VaultaYield Testnet Deployment");
     console.log("========================================");
     console.log(`Network: Stacks Testnet`);
-    console.log(`Total Contracts: ${CONTRACTS.length}`);
+    console.log("Total Contracts: 5 (vault-token already deployed)");
     console.log("========================================\n");
 
     // Derive private key from mnemonic
@@ -198,7 +200,7 @@ async function main() {
         // Get deployer account nonce  
         console.log("📊 Fetching account nonce...\n");
 
-        let nonceStart = 18; // Set to 18 based on last executed nonce of 17
+        let nonceStart = 24; // Set to 24 - failed deploys consumed nonces 19-23
         try {
             // Use curl as workaround for Node.js SSL issues on Windows
             const { exec } = await import('child_process');
