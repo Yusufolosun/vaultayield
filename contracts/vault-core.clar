@@ -262,6 +262,56 @@
   )
 )
 
+;; ========================================
+;; PUBLIC FUNCTIONS - PHASE 2 ADMIN CONFIG
+;; ========================================
+
+(define-public (set-stacking-strategy (contract-address principal))
+  ;; Set the stacking strategy contract address
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (var-set stacking-strategy-contract (some contract-address))
+    (ok true)
+  )
+)
+
+(define-public (set-harvest-manager (contract-address principal))
+  ;; Set the harvest manager contract address
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (var-set harvest-manager-contract (some contract-address))
+    (ok true)
+  )
+)
+
+(define-public (set-compound-engine (contract-address principal))
+  ;; Set the compound engine contract address
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (var-set compound-engine-contract (some contract-address))
+    (ok true)
+  )
+)
+
+(define-public (enable-stacking (enabled bool))
+  ;; Enable or disable stacking functionality
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (var-set stacking-enabled enabled)
+    (ok true)
+  )
+)
+
+(define-public (set-stacking-threshold (threshold uint))
+  ;; Update minimum STX threshold for stacking
+  (begin
+    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    (asserts! (> threshold u0) ERR-ZERO-AMOUNT)
+    (var-set min-stacking-threshold threshold)
+    (ok true)
+  )
+)
+
 (define-public (pause-contract)
   ;; Emergency pause (only owner)
   (begin
