@@ -17,6 +17,9 @@
 (define-constant ERR-ZERO-AMOUNT (err u102))
 (define-constant ERR-INVALID-FEE-RATE (err u103))
 (define-constant ERR-CALCULATION-ERROR (err u104))
+(define-constant ERR-STACKING-ERROR (err u105))
+(define-constant ERR-HARVEST-ERROR (err u106))
+(define-constant ERR-COMPOUND-ERROR (err u107))
 
 ;; Fee constraints
 (define-constant MAX-FEE-RATE u200) ;; 2% maximum (200 basis points)
@@ -31,6 +34,13 @@
 (define-data-var withdrawal-fee-rate uint DEFAULT-WITHDRAWAL-FEE)
 (define-data-var fee-balance uint u0)
 (define-data-var contract-paused bool false)
+
+;; Phase 2: PoX Stacking Integration
+(define-data-var stacking-strategy-contract (optional principal) none)
+(define-data-var harvest-manager-contract (optional principal) none)
+(define-data-var compound-engine-contract (optional principal) none)
+(define-data-var stacking-enabled bool false)
+(define-data-var min-stacking-threshold uint u100000000000000) ;; 100K STX minimum
 
 ;; ========================================
 ;; DATA MAPS
