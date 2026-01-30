@@ -19,11 +19,14 @@
         ]
     },
     "include": [
-        "scripts/**/*",
-        "tests/**/*"
+        "scripts/**/*"
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "tests",
+        "scripts/test-key-setup.ts",
+        "scripts/test-testnet.ts",
+        "scripts/verify-testnet-account.ts"
     ]
 }

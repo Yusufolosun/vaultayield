@@ -1,0 +1,53 @@
+---
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: "https://stacks-node-api.testnet.stacks.co"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: compound-engine
+            expected-sender: ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0
+            cost: 87940
+            path: "contracts\\compound-engine.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: fee-collector
+            expected-sender: ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0
+            cost: 27460
+            path: "contracts\\fee-collector.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: harvest-manager
+            expected-sender: ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0
+            cost: 67980
+            path: "contracts\\harvest-manager.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: stacking-strategy
+            expected-sender: ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0
+            cost: 71170
+            path: "contracts\\stacking-strategy.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: vault-core
+            expected-sender: ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0
+            cost: 121210
+            path: "contracts\\vault-core.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: vault-token
+            expected-sender: ST1M46W6CVGAMH3ZJD3TKMY5KCY48HWAZK1GA0CF0
+            cost: 33080
+            path: "contracts\\vault-token.clar"
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.4"
