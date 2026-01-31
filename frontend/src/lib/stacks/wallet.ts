@@ -1,5 +1,5 @@
 import { AppConfig, UserSession, showConnect } from '@stacks/connect';
-import { StacksMainnet, StacksTestnet } from '@stacks/network';
+import { STACKS_MAINNET, STACKS_TESTNET } from '@stacks/network';
 
 const appConfig = new AppConfig(['store_write', 'publish_data']);
 export const userSession = new UserSession({ appConfig });
@@ -40,5 +40,5 @@ export function getUserAddress(isMainnet: boolean = true): string | null {
 }
 
 export function getStacksNetwork(isMainnet: boolean = true) {
-    return isMainnet ? new StacksMainnet() : new StacksTestnet();
+    return isMainnet ? STACKS_MAINNET : STACKS_TESTNET;
 }

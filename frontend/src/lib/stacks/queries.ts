@@ -1,4 +1,4 @@
-import { callReadOnlyFunction, cvToJSON, principalCV, uintCV } from '@stacks/transactions';
+import { fetchCallReadOnlyFunction as callReadOnlyFunction, cvToJSON, principalCV, uintCV } from '@stacks/transactions';
 import { CONTRACT_ADDRESSES, IS_MAINNET } from './contracts';
 import { getStacksNetwork } from './wallet';
 
