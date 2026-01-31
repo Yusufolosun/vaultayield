@@ -1,0 +1,27 @@
+[
+  {
+    "step": "Auth vault-core-v1 as minter",
+    "txId": "8fbea38f875fe0a19b56eaabbb6b98fc65852d4ee24c3eb556f8a2b69557e4e6",
+    "status": "pending"
+  },
+  {
+    "step": "Auth vault-core-v1 for fees",
+    "txId": "46414eb039f3e2c439c9daad70c5fd92c9462da3be58aa9eac5095bc8615f654",
+    "status": "pending"
+  },
+  {
+    "step": "Link strategy to core-v1",
+    "txId": "bf81f738e9e94e594c939a9a1b9a8f44a2d071cfd305b67358543d4aba7852f0",
+    "status": "pending"
+  },
+  {
+    "step": "Link core-v1 to strategy",
+    "txId": "b6e430dc035ad7c9503b3b614e32fca0fc9ed5d94358ecf1f7c39927d8f6aaa8",
+    "status": "pending"
+  },
+  {
+    "step": "Enable protocol stacking",
+    "txId": "26ee75812a4b4c68391cd37ac41ce4fdee3e364221b59bc5724f903199752217",
+    "status": "pending"
+  }
+]
