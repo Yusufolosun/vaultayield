@@ -45,7 +45,7 @@ export default function WithdrawForm() {
             return;
         }
 
-        if (!isUnlocked) {
+        if (isUnlocked === false) {
             toast.error('Vault is currently locked in a stacking cycle');
             return;
         }

@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useWallet } from '@/contexts/WalletContext';
-import { CONTRACT_ADDRESSES } from '@/lib/stacks/contracts';
+import { CONTRACT_ADDRESSES, STACKS_API_URL } from '@/lib/stacks/contracts';
 
 export function useTransactions() {
     const { address, isConnected } = useWallet();
@@ -12,7 +12,7 @@ export function useTransactions() {
         queryFn: async () => {
             if (!address) return [];
 
-            const res = await fetch(`https://api.mainnet.hiro.so/extended/v1/address/${address}/transactions?limit=50`);
+            const res = await fetch(`${STACKS_API_URL}/extended/v1/address/${address}/transactions?limit=50`);
             const data = await res.json();
 
             // Filter for vault-core activities

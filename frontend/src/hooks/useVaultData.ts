@@ -46,7 +46,11 @@ export function useStrategyLock() {
                 contractName: 'stacking-strategy',
                 functionName: 'is-unlocked',
             });
-            return result.value.value === true;
+            // Handle (response-ok true) or direct boolean
+            if (result.success && result.value !== undefined) {
+                return result.value === true || result.value.value === true;
+            }
+            return result.value === true || result === true || result.value?.value === true;
         },
         refetchInterval: 60000,
     });

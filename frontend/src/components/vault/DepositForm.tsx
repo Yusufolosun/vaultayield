@@ -14,7 +14,7 @@ export default function DepositForm() {
     const { data: balance, isLoading: balanceLoading } = useStxBalance();
     const { isConnected, connect } = useWallet();
 
-    const previewShares = stats && amount ? Number(amount) / stats.sharePrice : 0;
+    const previewShares = (stats && stats.sharePrice > 0 && amount) ? Number(amount) / stats.sharePrice : 0;
 
     const handleMax = () => {
         if (balance) {

@@ -10,8 +10,12 @@ export const CONTRACT_ADDRESSES = {
     compoundEngine: process.env.NEXT_PUBLIC_COMPOUND_ENGINE_ADDRESS || '',
 };
 
-export const getContractId = (name: keyof typeof CONTRACT_ADDRESSES) => {
-    return CONTRACT_ADDRESSES[name];
+export const getContractDetails = (contractId: string) => {
+    const parts = contractId.split('.');
+    if (parts.length !== 2) {
+        return { address: '', name: '' };
+    }
+    return { address: parts[0], name: parts[1] };
 };
 
 export const IS_MAINNET = NETWORK === 'mainnet';
