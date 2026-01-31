@@ -1,0 +1,17 @@
+[
+  {
+    "step": "Auth vault-core as minter",
+    "txId": "832165e0c886e3728918d2c52b012c637e78c14650b9c854827112fa780cdef2",
+    "status": "pending"
+  },
+  {
+    "step": "Auth vault-core for fees",
+    "txId": "acb45c05c1bc48ce32e575dae4ec6b41cea00edafac61b1a6bf577f91c45ab5b",
+    "status": "pending"
+  },
+  {
+    "step": "Link strategy to core",
+    "txId": "50833a787a67b0a8e27624d9d593b958ce4ea6be7a1619e4a8608768d8f9d992",
+    "status": "pending"
+  }
+]
