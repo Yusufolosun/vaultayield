@@ -26,7 +26,9 @@
   },
   "homepage": "https://github.com/Yusufolosun/vaultayield#readme",
   "dependencies": {
+    "@scure/bip32": "^2.0.1",
     "@stacks/wallet-sdk": "^7.2.0",
+    "bip39": "^3.1.0",
     "node-fetch": "^2.7.0",
     "toml": "^3.0.0"
   },
