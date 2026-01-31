@@ -1,0 +1,893 @@
+[
+  {
+    "id": 1,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 5 STX",
+    "success": true,
+    "nonce": 65,
+    "txid": "86f0402c1e6dfe594deb1b0c37f77fc0cf357f0c3cb1487be89dbbb2850b8504"
+  },
+  {
+    "id": 2,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 10 STX",
+    "success": true,
+    "nonce": 66,
+    "txid": "5fce4f106197c140c46f4e6c3ad84390cf0dbc89ae9f5fc60f61a41b28c00112"
+  },
+  {
+    "id": 3,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 15 STX",
+    "success": true,
+    "nonce": 67,
+    "txid": "7eea911c74d53b967541f3329bf526eb3d95f889c66015c9fe513e6fe201f1f6"
+  },
+  {
+    "id": 4,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 20 STX",
+    "success": true,
+    "nonce": 68,
+    "txid": "7a0d584bde3ab5a86667a32f2a5f6eeb6b413feca1dd5fdcb7515ec932e763df"
+  },
+  {
+    "id": 5,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 25 STX",
+    "success": true,
+    "nonce": 69,
+    "txid": "25da04a7cd402eb9a38fbc38750762e445375defa98c301ec2219b247833297e"
+  },
+  {
+    "id": 6,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 30 STX",
+    "success": true,
+    "nonce": 70,
+    "txid": "2058c4bc42088973051b7f682f363c21bb209a23e4d6d3d4fffd36c645277716"
+  },
+  {
+    "id": 7,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 35 STX",
+    "success": true,
+    "nonce": 71,
+    "txid": "902e54e37e1f2eedc6feab664b2a1995ca04c08efffb653732f970de12551305"
+  },
+  {
+    "id": 8,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 40 STX",
+    "success": true,
+    "nonce": 72,
+    "txid": "4bae7011a9fc643af51d5420b7544aa0e709a16821989decbfa326c4e658376f"
+  },
+  {
+    "id": 9,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 45 STX",
+    "success": true,
+    "nonce": 73,
+    "txid": "76f28196de634e33516f29a322a3dea751f820dfc64b55e3cf671773364c829d"
+  },
+  {
+    "id": 10,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 50 STX",
+    "success": true,
+    "nonce": 74,
+    "txid": "95b54244c06cc75c38d51537d9a8c84bd0c1f59b8faf918858b02f8230e1dd23"
+  },
+  {
+    "id": 11,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 8 STX",
+    "success": true,
+    "nonce": 75,
+    "txid": "a9748d6a468a01058e782a94f98178a8b23f57b1b91f25f10dce6e11ac3d96b7"
+  },
+  {
+    "id": 12,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 12 STX",
+    "success": true,
+    "nonce": 76,
+    "txid": "09b1df70e14bdd0786a31ca248bb6d030454caaea70121354de74fd9ab398f32"
+  },
+  {
+    "id": 13,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 18 STX",
+    "success": true,
+    "nonce": 77,
+    "txid": "de49806e5c7168e049a6b8ea1999b8fec1dd1c6b007ed9651dfd79dcdd755868"
+  },
+  {
+    "id": 14,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 22 STX",
+    "success": true,
+    "nonce": 78,
+    "txid": "12d9b7978d45a1f6721a76cf10319120b5df26fa6003040631a350bff1a1b22e"
+  },
+  {
+    "id": 15,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 28 STX",
+    "success": true,
+    "nonce": 79,
+    "txid": "9a7d3c232c2695a59e62dad0635c740f6c9c85a4bf00857352602d402db375c4"
+  },
+  {
+    "id": 16,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 2M shares",
+    "success": true,
+    "nonce": 80,
+    "txid": "b62ef87815294a0c95c16325aac0741f5210794396e4258a3091fa060aacc476"
+  },
+  {
+    "id": 17,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 3M shares",
+    "success": true,
+    "nonce": 81,
+    "txid": "67aeb52ae03c47bbeedc1c6bafdf5f3e67a24866da3d5b050a613cf0d9488a6b"
+  },
+  {
+    "id": 18,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 5M shares",
+    "success": true,
+    "nonce": 82,
+    "txid": "90c30feaca0a81bdcf831eb15e8f48e8c5fc6972d639fa521362d46e5d60fa84"
+  },
+  {
+    "id": 19,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 7M shares",
+    "success": true,
+    "nonce": 83,
+    "txid": "6379e142c2dcbdc7264c0081a1b173b507672a5b6b63197ba8a24d9b86b66e92"
+  },
+  {
+    "id": 20,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 10M shares",
+    "success": true,
+    "nonce": 84,
+    "txid": "dc79f17adfd42e115c95b57cc11ce1d8e8ab00363c5ad09260e73e877e6b4327"
+  },
+  {
+    "id": 21,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 4M shares",
+    "success": true,
+    "nonce": 85,
+    "txid": "22a85914ddd5cf4c314a03b48ac20c5d132139b0a55e8c85e901af34dd68abc9"
+  },
+  {
+    "id": 22,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 6M shares",
+    "success": true,
+    "nonce": 86,
+    "txid": "a9339b2e10ec956c065fa5568d9b41a05fc7ada22b149516bd54f98f88aeca80"
+  },
+  {
+    "id": 23,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 8M shares",
+    "success": true,
+    "nonce": 87,
+    "txid": "ae3143c9b90fc1d73b1b60cbf9257fb22f8acdc354fb01ef59557d85a8a678eb"
+  },
+  {
+    "id": 24,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 9M shares",
+    "success": true,
+    "nonce": 88,
+    "txid": "f0c4d073f590860f581c06e312591dbcb37ba6ae92da1e9debb9db8d89a2564d"
+  },
+  {
+    "id": 25,
+    "contract": "vault-core",
+    "function": "withdraw",
+    "description": "Withdraw 11M shares",
+    "success": true,
+    "nonce": 89,
+    "txid": "c2196b34f1da7b7d277f40454529cea628321d80b59bff8b714fee05b0a1a9de"
+  },
+  {
+    "id": 26,
+    "contract": "vault-core",
+    "function": "set-withdrawal-fee",
+    "description": "Set withdrawal fee to 0.6%",
+    "success": true,
+    "nonce": 90,
+    "txid": "2f71710bc0d41797e33e21b3146b05bf5c9e9381f991298926a3b56257b262cf"
+  },
+  {
+    "id": 27,
+    "contract": "vault-core",
+    "function": "set-stacking-threshold",
+    "description": "Set stacking threshold to 75K STX",
+    "success": true,
+    "nonce": 91,
+    "txid": "286d84dda73292df56841a83e2d9d35180d43f3929f33e1701ae417cb08d6934"
+  },
+  {
+    "id": 28,
+    "contract": "vault-core",
+    "function": "pause-contract",
+    "description": "Pause contract",
+    "success": true,
+    "nonce": 92,
+    "txid": "effbe5b8fb1c6a84359b937c2175715fdbc382e24e4d91ff55dbab9b23abc568"
+  },
+  {
+    "id": 29,
+    "contract": "vault-core",
+    "function": "unpause-contract",
+    "description": "Unpause contract",
+    "success": true,
+    "nonce": 93,
+    "txid": "629f7b4911236abbfbd4709019dbcb91e552cf86dca3dd86c0e769947e5d7ab1"
+  },
+  {
+    "id": 30,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 6 STX",
+    "success": true,
+    "nonce": 94,
+    "txid": "f5f2bd01d89d1ec3270ce6b836e5e40afd2d2c886a9047d8057f7c6dd5d6cdbc"
+  },
+  {
+    "id": 31,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 11 STX",
+    "success": true,
+    "nonce": 95,
+    "txid": "7f401d951e28abc8c2a33a66b6ebd708e31699dff3e7ddddf5530b1ac8e99cd0"
+  },
+  {
+    "id": 32,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 16 STX",
+    "success": true,
+    "nonce": 96,
+    "txid": "1c40ec5febc4515fcbbc883f2399252a3efcba8624ca3e68dabc568bd11ebed3"
+  },
+  {
+    "id": 33,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 21 STX",
+    "success": true,
+    "nonce": 97,
+    "txid": "424122092f3b40af891ed4c8dcdf267f3771a30cb22602cc9f62e23afd322841"
+  },
+  {
+    "id": 34,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 26 STX",
+    "success": true,
+    "nonce": 98,
+    "txid": "25046a5740ee198137cc0b66bc64e88aed353268c0f36ea8d7ac75bdde2d25c5"
+  },
+  {
+    "id": 35,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 31 STX",
+    "success": true,
+    "nonce": 99,
+    "txid": "d8f1dd73c57ce126c575a4159c6b0a800577302b02256c8bade3f2d3dfbffe18"
+  },
+  {
+    "id": 36,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 36 STX",
+    "success": true,
+    "nonce": 100,
+    "txid": "ffcce999d5ea2519c8fb8543148a235e4bcb35d01aee392c4cbfdf1e3ec78779"
+  },
+  {
+    "id": 37,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 41 STX",
+    "success": true,
+    "nonce": 101,
+    "txid": "c912e2924441a8e573250f472822155928b181c327c8306f0b6ea2942e81583d"
+  },
+  {
+    "id": 38,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 46 STX",
+    "success": true,
+    "nonce": 102,
+    "txid": "9f24b1cc1f93bebdd0d193e4cc1d9119edf4ae2c1d8e68009112f308d5b2760c"
+  },
+  {
+    "id": 39,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 55 STX",
+    "success": true,
+    "nonce": 103,
+    "txid": "01a81b144b3613b86fdb71121ffb1d550ab9dcecd3d03c371e886c2335f2c42e"
+  },
+  {
+    "id": 40,
+    "contract": "vault-core",
+    "function": "collect-fees",
+    "description": "Collect fees",
+    "success": true,
+    "nonce": 104,
+    "txid": "34eac2feb694ab856bca5cb64485b839a55c6c35a4a299ffde448db9a0162e9a"
+  },
+  {
+    "id": 41,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 1000000 shares to self",
+    "success": true,
+    "nonce": 105,
+    "txid": "8954d527c0973808dc5068d4c86c256594cdcd06cd6e3b43e587925b02fc2e7e"
+  },
+  {
+    "id": 42,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 2000000 shares to self",
+    "success": true,
+    "nonce": 106,
+    "txid": "e8c14205a6ab83255364b8384a7433bd523afaf0a5c4e87d04d55c710da12aa2"
+  },
+  {
+    "id": 43,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 3000000 shares to self",
+    "success": true,
+    "nonce": 107,
+    "txid": "9d0f4ac8555f21b79a04097163ff909fa772208456d42d4b42e93a5cad39286b"
+  },
+  {
+    "id": 44,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 500000 shares to self",
+    "success": true,
+    "nonce": 108,
+    "txid": "af40f02cd4bb97dd66a0a9fbd622a7245973eb8491d6f5d774c0b75e90e4bf9a"
+  },
+  {
+    "id": 45,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 1500000 shares to self",
+    "success": true,
+    "nonce": 109,
+    "txid": "31c11eec838eb0deb5db35556620231ed4977805f47a09dd2da645ec92e84542"
+  },
+  {
+    "id": 46,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 2500000 shares to self",
+    "success": true,
+    "nonce": 110,
+    "txid": "e1b1217a7b39c063486e4d0fe89c96bf1059d51f14e910510cdc57854f4b6ee3"
+  },
+  {
+    "id": 47,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 100000 shares to self",
+    "success": true,
+    "nonce": 111,
+    "txid": "f494f42c6a330270f0f860a6aeaf9a71be79e3d4e00e7cc8f03c451c36ce5df2"
+  },
+  {
+    "id": 48,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 200000 shares to self",
+    "success": true,
+    "nonce": 112,
+    "txid": "0e46764ebe235c8b38a8925eb9e7cc4e1632029fd69d93d7f5d91456def8bbf5"
+  },
+  {
+    "id": 49,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 300000 shares to self",
+    "success": true,
+    "nonce": 113,
+    "txid": "917aebe27bde9c8e1f35ae80d40dec36cdd04790f571e78b1ece87acdc83bbb0"
+  },
+  {
+    "id": 50,
+    "contract": "vault-token",
+    "function": "transfer",
+    "description": "Transfer 400000 shares to self",
+    "success": true,
+    "nonce": 114,
+    "txid": "0f014db51cf7dadb00f7b9ca9ab231b01be2f891be9e412622c4c9c3e40c796a"
+  },
+  {
+    "id": 51,
+    "contract": "vault-token",
+    "function": "set-token-uri",
+    "description": "Set token URI",
+    "success": true,
+    "nonce": 115,
+    "txid": "ea63cde41bcf4a544d45f145680848005037219068eddceb432bef59992de610"
+  },
+  {
+    "id": 52,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 13 STX for shares",
+    "success": true,
+    "nonce": 116,
+    "txid": "1c331421cd11c86baf970c40f1fdb2a12e3333c47f28409872412c1a29b68c56"
+  },
+  {
+    "id": 53,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 17 STX for shares",
+    "success": true,
+    "nonce": 117,
+    "txid": "5d68da198705423bfaea6e9c6bf5cbc1d1a8bbd0bf25dbe84793fb1840eaa7f6"
+  },
+  {
+    "id": 54,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 23 STX for shares",
+    "success": true,
+    "nonce": 118,
+    "txid": "b6bc033d25f31c44692e793bb2b352a5cca189920de132dc8c7c517f3720f0fe"
+  },
+  {
+    "id": 55,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Deposit 27 STX for shares",
+    "success": true,
+    "nonce": 119,
+    "txid": "6aaf499f4d8e133848f6af0d94cba000cb8b3e81ca179a2bcb10cbe144e760ca"
+  },
+  {
+    "id": 56,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #1",
+    "success": true,
+    "nonce": 120,
+    "txid": "bf255cf1cd1f265b41d33bcf7749c3ccdd8d4e0c06061db10473225c100b1d78"
+  },
+  {
+    "id": 57,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #2",
+    "success": false,
+    "nonce": 121,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 58,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #3",
+    "success": false,
+    "nonce": 122,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 59,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #4",
+    "success": false,
+    "nonce": 123,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 60,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #5",
+    "success": false,
+    "nonce": 124,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 61,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #6",
+    "success": false,
+    "nonce": 125,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 62,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #7",
+    "success": false,
+    "nonce": 126,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 63,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #8",
+    "success": false,
+    "nonce": 127,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 64,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #9",
+    "success": false,
+    "nonce": 128,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 65,
+    "contract": "fee-collector",
+    "function": "withdraw-fees",
+    "description": "Withdraw fees #10",
+    "success": false,
+    "nonce": 129,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 66,
+    "contract": "stacking-strategy",
+    "function": "update-pool-operator",
+    "description": "Update pool operator #1",
+    "success": false,
+    "nonce": 130,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 67,
+    "contract": "stacking-strategy",
+    "function": "update-pool-operator",
+    "description": "Update pool operator #2",
+    "success": false,
+    "nonce": 131,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 68,
+    "contract": "stacking-strategy",
+    "function": "update-pool-operator",
+    "description": "Update pool operator #3",
+    "success": false,
+    "nonce": 132,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 69,
+    "contract": "stacking-strategy",
+    "function": "update-pool-operator",
+    "description": "Update pool operator #4",
+    "success": false,
+    "nonce": 133,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 70,
+    "contract": "stacking-strategy",
+    "function": "update-pool-operator",
+    "description": "Update pool operator #5",
+    "success": false,
+    "nonce": 134,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 71,
+    "contract": "stacking-strategy",
+    "function": "delegate-vault-stx",
+    "description": "Delegate 100 STX for 1 cycle",
+    "success": false,
+    "nonce": 135,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 72,
+    "contract": "stacking-strategy",
+    "function": "delegate-vault-stx",
+    "description": "Delegate 200 STX for 1 cycle",
+    "success": false,
+    "nonce": 136,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 73,
+    "contract": "stacking-strategy",
+    "function": "delegate-vault-stx",
+    "description": "Delegate 300 STX for 1 cycle",
+    "success": false,
+    "nonce": 137,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 74,
+    "contract": "stacking-strategy",
+    "function": "delegate-vault-stx",
+    "description": "Delegate 150 STX for 1 cycle",
+    "success": false,
+    "nonce": 138,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 75,
+    "contract": "stacking-strategy",
+    "function": "delegate-vault-stx",
+    "description": "Delegate 250 STX for 1 cycle",
+    "success": false,
+    "nonce": 139,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 76,
+    "contract": "harvest-manager",
+    "function": "manual-record-reward",
+    "description": "Record 50000 sats reward for cycle 1",
+    "success": false,
+    "nonce": 140,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 77,
+    "contract": "harvest-manager",
+    "function": "manual-record-reward",
+    "description": "Record 75000 sats reward for cycle 2",
+    "success": false,
+    "nonce": 141,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 78,
+    "contract": "harvest-manager",
+    "function": "manual-record-reward",
+    "description": "Record 100000 sats reward for cycle 3",
+    "success": false,
+    "nonce": 142,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 79,
+    "contract": "harvest-manager",
+    "function": "manual-record-reward",
+    "description": "Record 125000 sats reward for cycle 4",
+    "success": false,
+    "nonce": 143,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 80,
+    "contract": "harvest-manager",
+    "function": "manual-record-reward",
+    "description": "Record 150000 sats reward for cycle 5",
+    "success": false,
+    "nonce": 144,
+    "error": "Failed to broadcast transaction (unable to parse node response)."
+  },
+  {
+    "id": 81,
+    "contract": "harvest-manager",
+    "function": "harvest-rewards",
+    "description": "Harvest rewards attempt #1",
+    "success": true,
+    "nonce": 145,
+    "txid": "56092625cb791445d548f382cbc53bda7a4ed08d37db2bf4458240be53b4a6c7"
+  },
+  {
+    "id": 82,
+    "contract": "harvest-manager",
+    "function": "harvest-rewards",
+    "description": "Harvest rewards attempt #2",
+    "success": true,
+    "nonce": 146,
+    "txid": "b8348886a5dcd12170788081254ca54c255b1750c1a1de0226e744d031fcfb56"
+  },
+  {
+    "id": 83,
+    "contract": "harvest-manager",
+    "function": "harvest-rewards",
+    "description": "Harvest rewards attempt #3",
+    "success": true,
+    "nonce": 147,
+    "txid": "4df3fc49809775d8a8ab4569a28e31900e20d79d66ca136b6c0b95c97caf36ef"
+  },
+  {
+    "id": 84,
+    "contract": "harvest-manager",
+    "function": "harvest-rewards",
+    "description": "Harvest rewards attempt #4",
+    "success": false,
+    "nonce": 148,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 85,
+    "contract": "harvest-manager",
+    "function": "harvest-rewards",
+    "description": "Harvest rewards attempt #5",
+    "success": false,
+    "nonce": 149,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 86,
+    "contract": "compound-engine",
+    "function": "set-mock-exchange-rate",
+    "description": "Set mock exchange rate to 50000",
+    "success": false,
+    "nonce": 150,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 87,
+    "contract": "compound-engine",
+    "function": "enable-mock-dex-mode",
+    "description": "Enable mock DEX mode",
+    "success": false,
+    "nonce": 151,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 88,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 25000 sats",
+    "success": false,
+    "nonce": 152,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 89,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 50000 sats",
+    "success": false,
+    "nonce": 153,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 90,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 75000 sats",
+    "success": false,
+    "nonce": 154,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 91,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 100000 sats",
+    "success": false,
+    "nonce": 155,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 92,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 35000 sats",
+    "success": false,
+    "nonce": 156,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 93,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 60000 sats",
+    "success": false,
+    "nonce": 157,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 94,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 85000 sats",
+    "success": false,
+    "nonce": 158,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 95,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 110000 sats",
+    "success": false,
+    "nonce": 159,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 96,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 45000 sats",
+    "success": false,
+    "nonce": 160,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 97,
+    "contract": "compound-engine",
+    "function": "execute-compound-mock",
+    "description": "Mock compound 70000 sats",
+    "success": false,
+    "nonce": 161,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 98,
+    "contract": "compound-engine",
+    "function": "set-slippage-tolerance",
+    "description": "Set slippage tolerance to 3%",
+    "success": false,
+    "nonce": 162,
+    "error": "transaction rejected - TooMuchChaining"
+  },
+  {
+    "id": 99,
+    "contract": "vault-core",
+    "function": "deposit",
+    "description": "Final deposit 100 STX",
+    "success": false,
+    "nonce": 163,
+    "error": "transaction rejected - TooMuchChaining"
+  }
+]

@@ -8,7 +8,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "clarinet test",
+    "test:production": "npx ts-node scripts/production-test.ts",
+    "deploy:mainnet": "npx ts-node scripts/deploy-mainnet.ts",
+    "configure:mainnet": "npx ts-node scripts/configure-mainnet.ts"
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,16 @@
   "bugs": {
     "url": "https://github.com/Yusufolosun/vaultayield/issues"
   },
-  "homepage": "https://github.com/Yusufolosun/vaultayield#readme"
+  "homepage": "https://github.com/Yusufolosun/vaultayield#readme",
+  "dependencies": {
+    "@scure/bip32": "^2.0.1",
+    "@stacks/wallet-sdk": "^7.2.0",
+    "bip39": "^3.1.0",
+    "node-fetch": "^2.7.0",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.1.0",
+    "typescript": "^5.9.3"
+  }
 }

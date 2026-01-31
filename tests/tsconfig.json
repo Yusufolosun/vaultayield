@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "types": [
+            "./clarinet.d.ts"
+        ]
+    }
+}

@@ -1,5 +1,67 @@
+# Dependencies
 node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Clarinet
 .clarinet/
+.cache/
+
+# IDE
 .vscode/
-*.log
+.idea/
+*.swp
+*.swo
+*~
+
+# ==================================
+# SECURITY: SENSITIVE FILES
+# ==================================
+# NEVER commit these files - they contain private keys and secrets
 .env
+.env.*
+!.env.example
+*.env
+
+# Block ENTIRE settings/ directory (contains mnemonics and network configs)
+settings/
+
+# Other sensitive files
+deployment-testnet.json
+deployment-mainnet.json
+*.key
+*.secret
+private-keys/
+secrets/
+wallets/
+
+# ==================================
+# Build outputs
+# ==================================
+dist/
+build/
+*.js.map
+*.d.ts
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary
+*.tmp
+*.temp
+tmp/
+temp/
