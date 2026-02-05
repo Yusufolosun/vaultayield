@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * A flexible Card component for grouping content with consistent styling.
+ * Supports various shadows, borders, and hover effects.
+ */
 export const Card: React.FC<{
     children: React.ReactNode;
     className?: string;
@@ -37,6 +41,9 @@ export const Card: React.FC<{
         );
     };
 
+/**
+ * CardHeader subcomponent with optional padding.
+ */
 export const CardHeader: React.FC<{
     children: React.ReactNode;
     className?: string;
@@ -59,6 +66,9 @@ export const CardHeader: React.FC<{
         );
     };
 
+/**
+ * CardContent subcomponent for main card body.
+ */
 export const CardContent: React.FC<{
     children: React.ReactNode;
     className?: string;
@@ -81,6 +91,9 @@ export const CardContent: React.FC<{
         );
     };
 
+/**
+ * CardFooter subcomponent with optional padding and border.
+ */
 export const CardFooter: React.FC<{
     children: React.ReactNode;
     className?: string;
