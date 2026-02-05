@@ -1,14 +1,11 @@
 import React from 'react';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    variant?: 'default' | 'underline';
-    sizeVariant?: 'sm' | 'md' | 'lg';
-    error?: boolean;
-    success?: boolean;
-    label?: string;
-    helperText?: string;
-}
+import { InputProps } from './Input.types';
 
+/**
+ * A highly customizable, accessible Input component for the VaultaYield UI.
+ * Supports various variants, sizes, validation states, and label integration.
+ */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ({ className = '', variant = 'default', sizeVariant = 'md', error, success, label, helperText, ...props }, ref) => {
         const baseStyles = "w-full outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed";
