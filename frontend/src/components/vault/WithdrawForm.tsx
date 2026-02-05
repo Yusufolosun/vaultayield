@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useVaultData, useUserPosition, useStrategyLock } from '@/hooks/useVaultData';
 import { withdrawFromVault } from '@/lib/stacks/transactions';
 import { useWallet } from '@/contexts/WalletContext';
-import { ArrowUp, Loader2, Info, Lock, Unlocked, AlertTriangle } from 'lucide-react';
+import { ArrowUp, Loader2, Info, Lock, Unlock, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function WithdrawForm() {
@@ -72,7 +72,7 @@ export default function WithdrawForm() {
                         <Loader2 className="w-3 h-3 animate-spin" />
                     ) : isUnlocked ? (
                         <div className="flex items-center gap-1.5 text-emerald-600">
-                            <Unlocked className="w-3 h-3" />
+                            <Unlock className="w-3 h-3" />
                             Unlocked
                         </div>
                     ) : (
