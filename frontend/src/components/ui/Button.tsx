@@ -10,9 +10,10 @@ export const Button: React.FC<ButtonProps> = ({
     children,
     variant = 'primary',
     size = 'md',
+    className = '',
     ...props
 }) => {
-    const baseStyles = "rounded-2xl font-bold transition-all active:scale-[0.98]";
+    const baseStyles = "rounded-2xl font-bold transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
         primary: "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25",
