@@ -1,15 +1,28 @@
 import React from 'react';
 
-export const Card: React.FC<{ children: React.ReactNode; className?: string }> = ({
+export const Card: React.FC<{
+    children: React.ReactNode;
+    className?: string;
+    shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+}> = ({
     children,
-    className = ''
+    className = '',
+    shadow = 'xl'
 }) => {
-    return (
-        <div className={`bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 shadow-xl shadow-neutral-200/20 ${className}`}>
-            {children}
-        </div>
-    );
-};
+        const shadows = {
+            none: '',
+            sm: 'shadow-sm',
+            md: 'shadow-md',
+            lg: 'shadow-lg',
+            xl: 'shadow-xl shadow-neutral-200/20'
+        };
+
+        return (
+            <div className={`bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 ${shadows[shadow]} ${className}`}>
+                {children}
+            </div>
+        );
+    };
 
 export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({
     children,
