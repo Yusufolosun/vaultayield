@@ -5,6 +5,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
     isLoading?: boolean;
+    leftIcon?: React.ReactNode;
+    rightIcon?: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -12,6 +14,8 @@ export const Button: React.FC<ButtonProps> = ({
     variant = 'primary',
     size = 'md',
     isLoading = false,
+    leftIcon,
+    rightIcon,
     className = '',
     ...props
 }) => {
@@ -36,8 +40,15 @@ export const Button: React.FC<ButtonProps> = ({
             disabled={props.disabled || isLoading}
             {...props}
         >
-            {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
+            {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+            ) : leftIcon ? (
+                <span className="shrink-0">{leftIcon}</span>
+            ) : null}
             {children}
+            {!isLoading && rightIcon && (
+                <span className="shrink-0">{rightIcon}</span>
+            )}
         </button>
     );
 };
