@@ -6,7 +6,9 @@ import { withdrawFromVault } from '@/lib/stacks/transactions';
 import { useWallet } from '@/contexts/WalletContext';
 import { ArrowUp, Loader2, Info, Lock, Unlock, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { Card, CardHeader, CardContent, Button, Input } from '@/components/ui';
+import { Card, CardHeader, CardContent } from '../ui/Card';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
 
 export default function WithdrawForm() {
     const [shares, setShares] = useState<string>('');
