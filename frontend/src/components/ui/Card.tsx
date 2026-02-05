@@ -10,3 +10,14 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string }> =
         </div>
     );
 };
+
+export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({
+    children,
+    className = ''
+}) => {
+    return (
+        <div className={`px-8 py-6 border-b border-neutral-100 dark:border-neutral-700/50 ${className}`}>
+            {children}
+        </div>
+    );
+};
