@@ -156,7 +156,7 @@ export default function WithdrawForm() {
                         disabled={isSubmitting || !isUnlocked || (isConnected && (!shares || Number(shares) <= 0))}
                         variant="primary"
                         size="lg"
-                        loading={isSubmitting}
+                        isLoading={isSubmitting}
                         className="w-full"
                     >
                         {!isConnected ? 'Connect Wallet' : !isUnlocked ? 'Withdraw Locked' : 'Withdraw STX'}
@@ -164,9 +164,5 @@ export default function WithdrawForm() {
                 </form>
             </CardContent>
         </Card>
-    );
-}
-            </form >
-        </div >
     );
 }
