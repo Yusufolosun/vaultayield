@@ -28,10 +28,16 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
     const connect = () => {
         setIsConnecting(true);
-        authenticate(() => {
-            setAddress(getUserAddress(IS_MAINNET));
-            setIsConnecting(false);
-        });
+        console.log('Connecting wallet...');
+        authenticate(
+            () => {
+                setAddress(getUserAddress(IS_MAINNET));
+                setIsConnecting(false);
+            },
+            () => {
+                setIsConnecting(false);
+            }
+        );
     };
 
     const handleDisconnect = () => {

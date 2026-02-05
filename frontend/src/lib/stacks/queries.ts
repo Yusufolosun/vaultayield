@@ -1,6 +1,30 @@
-import { callReadOnlyFunction, cvToJSON, principalCV, uintCV } from '@stacks/transactions';
-import { CONTRACT_ADDRESSES, IS_MAINNET } from './contracts';
+import { fetchCallReadOnlyFunction as callReadOnlyFunction, cvToJSON, principalCV, uintCV } from '@stacks/transactions';
+import { CONTRACT_ADDRESSES, IS_MAINNET, getContractDetails } from './contracts';
 import { getStacksNetwork } from './wallet';
+
+// Helper to safely parse numbers from various cvToJSON result formats
+function parseNumericResponse(result: any): number {
+    try {
+        // Handle (response-ok (uint ...))
+        if (result.success && result.value) {
+            if (result.value.type === 'uint' || typeof result.value.value === 'string' || typeof result.value.value === 'number') {
+                return Number(result.value.value);
+            }
+        }
+        // Handle direct (uint ...)
+        if (result.type === 'uint' || typeof result.value === 'string' || typeof result.value === 'number') {
+            return Number(result.value || result);
+        }
+        // Fallback for deeply nested value.value
+        if (result.value?.value !== undefined) {
+            return Number(result.value.value);
+        }
+        return Number(result);
+    } catch (e) {
+        console.error('Failed to parse numeric response:', result, e);
+        return 0;
+    }
+}
 
 export async function getReadOnlyCall({
     contractName,
@@ -13,7 +37,7 @@ export async function getReadOnlyCall({
     functionArgs?: any[];
     senderAddress?: string;
 }) {
-    const [address, name] = CONTRACT_ADDRESSES.vaultCore.split('.');
+    const { address, name } = getContractDetails(CONTRACT_ADDRESSES.vaultCore);
 
     const options = {
         contractAddress: address,
@@ -29,35 +53,39 @@ export async function getReadOnlyCall({
 }
 
 export async function getVaultStats() {
-    const [totalAssets, sharePrice, totalShares] = await Promise.all([
-        getReadOnlyCall({ contractName: 'vault-core-v1', functionName: 'get-total-assets' }),
-        getReadOnlyCall({ contractName: 'vault-core-v1', functionName: 'get-share-price' }),
-        getReadOnlyCall({ contractName: 'vault-core-v1', functionName: 'get-total-shares' }),
+    const { name: vaultName } = getContractDetails(CONTRACT_ADDRESSES.vaultCore);
+
+    const [totalAssetsRes, sharePriceRes, totalSharesRes] = await Promise.all([
+        getReadOnlyCall({ contractName: vaultName, functionName: 'get-total-assets' }),
+        getReadOnlyCall({ contractName: vaultName, functionName: 'get-share-price' }),
+        getReadOnlyCall({ contractName: vaultName, functionName: 'get-total-shares' }),
     ]);
 
     return {
-        totalAssets: Number(totalAssets.value.value) / 1_000_000,
-        sharePrice: Number(sharePrice.value.value) / 1_000_000,
-        totalShares: Number(totalShares.value.value) / 1_000_000,
+        totalAssets: parseNumericResponse(totalAssetsRes) / 1_000_000,
+        sharePrice: parseNumericResponse(sharePriceRes) / 1_000_000,
+        totalShares: parseNumericResponse(totalSharesRes) / 1_000_000,
     };
 }
 
 export async function getUserPosition(userAddress: string) {
-    const [shares, stxValue] = await Promise.all([
+    const { name: vaultName } = getContractDetails(CONTRACT_ADDRESSES.vaultCore);
+
+    const [sharesRes, stxValueRes] = await Promise.all([
         getReadOnlyCall({
-            contractName: 'vault-core-v1',
+            contractName: vaultName,
             functionName: 'get-user-shares',
             functionArgs: [principalCV(userAddress)]
         }),
         getReadOnlyCall({
-            contractName: 'vault-core-v1',
+            contractName: vaultName,
             functionName: 'get-user-stx-value',
             functionArgs: [principalCV(userAddress)]
         }),
     ]);
 
     return {
-        shares: Number(shares.value.value) / 1_000_000,
-        stxValue: Number(stxValue.value.value) / 1_000_000,
+        shares: parseNumericResponse(sharesRes) / 1_000_000,
+        stxValue: parseNumericResponse(stxValueRes) / 1_000_000,
     };
 }

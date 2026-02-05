@@ -60,12 +60,14 @@ export default function TransactionList() {
                         {transactions.map((tx: any) => {
                             const type = getTxType(tx);
                             const Icon = type.icon;
-                            const date = new Date(tx.burn_block_time * 1000).toLocaleDateString(undefined, {
-                                month: 'short',
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            });
+                            const date = tx.burn_block_time
+                                ? new Date(tx.burn_block_time * 1000).toLocaleDateString(undefined, {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })
+                                : 'Pending...';
 
                             return (
                                 <tr key={tx.tx_id} className="hover:bg-neutral-50 dark:hover:bg-neutral-900/30 transition-colors">
@@ -89,8 +91,8 @@ export default function TransactionList() {
                                                 <XCircle className="w-4 h-4 text-red-500" />
                                             )}
                                             <span className={`text-sm font-medium capitalize ${tx.tx_status === 'success' ? 'text-emerald-700 dark:text-emerald-400' :
-                                                    tx.tx_status === 'pending' ? 'text-amber-700 dark:text-amber-400' :
-                                                        'text-red-700 dark:text-red-400'
+                                                tx.tx_status === 'pending' ? 'text-amber-700 dark:text-amber-400' :
+                                                    'text-red-700 dark:text-red-400'
                                                 }`}>
                                                 {tx.tx_status}
                                             </span>

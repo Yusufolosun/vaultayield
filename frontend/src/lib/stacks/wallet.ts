@@ -1,5 +1,5 @@
-import { AppConfig, UserSession, showConnect } from '@stacks/connect';
-import { StacksMainnet, StacksTestnet } from '@stacks/network';
+import { AppConfig, UserSession, authenticate as showConnect } from '@stacks/connect';
+import { STACKS_MAINNET, STACKS_TESTNET } from '@stacks/network';
 
 const appConfig = new AppConfig(['store_write', 'publish_data']);
 export const userSession = new UserSession({ appConfig });
@@ -11,15 +11,26 @@ export const getAppDetails = () => ({
         : '',
 });
 
-export function authenticate(onFinish?: () => void) {
-    showConnect({
-        appDetails: getAppDetails(),
-        redirectTo: '/',
-        onFinish: () => {
-            if (onFinish) onFinish();
-        },
-        userSession,
-    });
+export function authenticate(onFinish?: () => void, onCancel?: () => void) {
+    console.log('Initiating Stacks authentication...');
+    try {
+        showConnect({
+            appDetails: getAppDetails(),
+            redirectTo: '/',
+            onFinish: () => {
+                console.log('Authentication successful');
+                if (onFinish) onFinish();
+            },
+            onCancel: () => {
+                console.log('Authentication cancelled by user');
+                if (onCancel) onCancel();
+            },
+            userSession,
+        });
+    } catch (error) {
+        console.error('Error during showConnect:', error);
+        if (onCancel) onCancel();
+    }
 }
 
 export function disconnect() {
@@ -40,5 +51,5 @@ export function getUserAddress(isMainnet: boolean = true): string | null {
 }
 
 export function getStacksNetwork(isMainnet: boolean = true) {
-    return isMainnet ? new StacksMainnet() : new StacksTestnet();
+    return isMainnet ? STACKS_MAINNET : STACKS_TESTNET;
 }

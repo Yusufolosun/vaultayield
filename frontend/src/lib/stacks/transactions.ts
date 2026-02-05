@@ -1,6 +1,6 @@
 import { openContractCall } from '@stacks/connect';
 import { uintCV } from '@stacks/transactions';
-import { CONTRACT_ADDRESSES, IS_MAINNET } from './contracts';
+import { CONTRACT_ADDRESSES, IS_MAINNET, getContractDetails } from './contracts';
 import { getStacksNetwork, getAppDetails } from './wallet';
 
 export async function depositToVault(
@@ -8,11 +8,11 @@ export async function depositToVault(
     onFinish?: (data: any) => void
 ) {
     const amountMicroStx = Math.floor(amountStx * 1_000_000);
-    const [address, name] = CONTRACT_ADDRESSES.vaultCore.split('.');
+    const { address, name } = getContractDetails(CONTRACT_ADDRESSES.vaultCore);
 
     await openContractCall({
         contractAddress: address,
-        contractName: name || 'vault-core-v1',
+        contractName: name,
         functionName: 'deposit',
         functionArgs: [uintCV(amountMicroStx)],
         network: getStacksNetwork(IS_MAINNET),
@@ -32,11 +32,11 @@ export async function withdrawFromVault(
     onFinish?: (data: any) => void
 ) {
     const sharesMicroUnits = Math.floor(shares * 1_000_000);
-    const [address, name] = CONTRACT_ADDRESSES.vaultCore.split('.');
+    const { address, name } = getContractDetails(CONTRACT_ADDRESSES.vaultCore);
 
     await openContractCall({
         contractAddress: address,
-        contractName: name || 'vault-core-v1',
+        contractName: name,
         functionName: 'withdraw',
         functionArgs: [uintCV(sharesMicroUnits)],
         network: getStacksNetwork(IS_MAINNET),
