@@ -3,15 +3,23 @@ import React from 'react';
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     variant?: 'default' | 'underline';
     sizeVariant?: 'sm' | 'md' | 'lg';
+    error?: boolean;
+    success?: boolean;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({ className = '', variant = 'default', sizeVariant = 'md', ...props }, ref) => {
+    ({ className = '', variant = 'default', sizeVariant = 'md', error, success, ...props }, ref) => {
         const baseStyles = "w-full outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed";
 
         const variants = {
-            default: "bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-            underline: "bg-transparent border-b-2 border-neutral-200 dark:border-neutral-800 rounded-none focus:border-blue-500 px-0"
+            default: `bg-neutral-50 dark:bg-neutral-900 border rounded-2xl focus:ring-2 focus:border-transparent ${error ? 'border-red-500 focus:ring-red-500' :
+                    success ? 'border-emerald-500 focus:ring-emerald-500' :
+                        'border-neutral-200 dark:border-neutral-800 focus:ring-blue-500'
+                }`,
+            underline: `bg-transparent border-b-2 rounded-none px-0 ${error ? 'border-red-500' :
+                    success ? 'border-emerald-500' :
+                        'border-neutral-200 dark:border-neutral-800 focus:border-blue-500'
+                }`
         };
 
         const sizes = {
