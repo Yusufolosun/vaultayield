@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { useVaultData, useStxBalance } from '@/hooks/useVaultData';
 import { depositToVault } from '@/lib/stacks/transactions';
 import { useWallet } from '@/contexts/WalletContext';
-import { ArrowDown, Loader2, Info, AlertTriangle } from 'lucide-react';
+import { ArrowDown, Info, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { Button } from '@/components/ui';
 
 export default function DepositForm() {
     const [amount, setAmount] = useState<string>('');
@@ -81,13 +82,16 @@ export default function DepositForm() {
                             placeholder="0.00"
                             className="w-full bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl px-6 py-4 text-2xl font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
                         />
-                        <button
-                            type="button"
-                            onClick={handleMax}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-                        >
-                            MAX
-                        </button>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                            <Button
+                                type="button"
+                                onClick={handleMax}
+                                size="sm"
+                                className="px-3 py-1.5 rounded-lg"
+                            >
+                                MAX
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
@@ -129,21 +133,20 @@ export default function DepositForm() {
                 )}
 
                 {/* Submit Button */}
-                <button
+                <Button
                     type="submit"
-                    disabled={isSubmitting || (isConnected && (!amount || Number(amount) <= 0))}
-                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                    isLoading={isSubmitting}
+                    disabled={isConnected && (!amount || Number(amount) <= 0)}
+                    size="lg"
+                    className="w-full"
                 >
-                    {isSubmitting ? (
-                        <>
-                            <Loader2 className="w-5 h-5 animate-spin" />
-                            Confirming...
-                        </>
-                    ) : (
-                        isConnected ? 'Deposit STX' : 'Connect Wallet to Deposit'
-                    )}
-                </button>
+                    {isConnected ? 'Deposit STX' : 'Connect Wallet to Deposit'}
+                </Button>
             </form>
         </div>
+    );
+}
+            </form >
+        </div >
     );
 }
