@@ -2,6 +2,12 @@ import { Loader2 } from 'lucide-react';
 
 import { ButtonProps } from './Button.types';
 
+/**
+ * A highly customizable, accessible Button component for the VaultaYield UI.
+ * Supports various variants, sizes, loading states, and icon integration.
+ * 
+ * @param props - Button properties including variant, size, isLoading, leftIcon, and rightIcon.
+ */
 export const Button: React.FC<ButtonProps> = ({
     children,
     variant = 'primary',
