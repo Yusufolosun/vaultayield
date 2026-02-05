@@ -33,35 +33,68 @@ export const Card: React.FC<{
         );
     };
 
-export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({
+export const CardHeader: React.FC<{
+    children: React.ReactNode;
+    className?: string;
+    padding?: 'none' | 'sm' | 'md' | 'lg';
+}> = ({
     children,
-    className = ''
+    className = '',
+    padding = 'md'
 }) => {
-    return (
-        <div className={`px-8 py-6 border-b border-neutral-100 dark:border-neutral-700/50 ${className}`}>
-            {children}
-        </div>
-    );
-};
+        const paddings = {
+            none: 'p-0',
+            sm: 'px-6 py-4',
+            md: 'px-8 py-6',
+            lg: 'px-10 py-8'
+        };
+        return (
+            <div className={`border-b border-neutral-100 dark:border-neutral-700/50 ${paddings[padding]} ${className}`}>
+                {children}
+            </div>
+        );
+    };
 
-export const CardContent: React.FC<{ children: React.ReactNode; className?: string }> = ({
+export const CardContent: React.FC<{
+    children: React.ReactNode;
+    className?: string;
+    padding?: 'none' | 'sm' | 'md' | 'lg';
+}> = ({
     children,
-    className = ''
+    className = '',
+    padding = 'md'
 }) => {
-    return (
-        <div className={`px-8 py-6 ${className}`}>
-            {children}
-        </div>
-    );
-};
+        const paddings = {
+            none: 'p-0',
+            sm: 'px-6 py-4',
+            md: 'px-8 py-6',
+            lg: 'px-10 py-8'
+        };
+        return (
+            <div className={`${paddings[padding]} ${className}`}>
+                {children}
+            </div>
+        );
+    };
 
-export const CardFooter: React.FC<{ children: React.ReactNode; className?: string }> = ({
+export const CardFooter: React.FC<{
+    children: React.ReactNode;
+    className?: string;
+    padding?: 'none' | 'sm' | 'md' | 'lg';
+}> = ({
     children,
-    className = ''
+    className = '',
+    padding = 'md'
 }) => {
-    return (
-        <div className={`px-8 py-6 border-t border-neutral-100 dark:border-neutral-700/50 ${className}`}>
-            {children}
-        </div>
-    );
-};
+        const paddings = {
+            none: 'p-0',
+            sm: 'px-6 py-4',
+            md: 'px-8 py-6',
+            lg: 'px-10 py-8'
+        };
+        return (
+            <div className={`border-t border-neutral-100 dark:border-neutral-700/50 ${paddings[padding]} ${className}`}>
+                {children}
+            </div>
+        );
+    };
