@@ -4,10 +4,12 @@ export const Card: React.FC<{
     children: React.ReactNode;
     className?: string;
     shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+    border?: 'none' | 'subtle' | 'default' | 'vibrant';
 }> = ({
     children,
     className = '',
-    shadow = 'xl'
+    shadow = 'xl',
+    border = 'default'
 }) => {
         const shadows = {
             none: '',
@@ -17,8 +19,15 @@ export const Card: React.FC<{
             xl: 'shadow-xl shadow-neutral-200/20'
         };
 
+        const borders = {
+            none: 'border-0',
+            subtle: 'border border-neutral-100 dark:border-neutral-800',
+            default: 'border border-neutral-200 dark:border-neutral-700',
+            vibrant: 'border-2 border-blue-500/20 dark:border-blue-500/30'
+        };
+
         return (
-            <div className={`bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 ${shadows[shadow]} ${className}`}>
+            <div className={`bg-white dark:bg-neutral-800 rounded-3xl ${borders[border]} ${shadows[shadow]} ${className}`}>
                 {children}
             </div>
         );
