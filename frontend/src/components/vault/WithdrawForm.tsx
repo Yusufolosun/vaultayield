@@ -6,10 +6,11 @@ import { withdrawFromVault } from '@/lib/stacks/transactions';
 import { useWallet } from '@/contexts/WalletContext';
 import { ArrowUp, Loader2, Info, Lock, Unlock, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { Card, CardHeader, CardContent, Button, Input } from '@/components/ui';
+import { Card, CardHeader, CardContent } from '../ui/Card';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
 
 export default function WithdrawForm() {
-    // ... stats, loading, position
     const [shares, setShares] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -156,7 +157,7 @@ export default function WithdrawForm() {
                         disabled={isSubmitting || !isUnlocked || (isConnected && (!shares || Number(shares) <= 0))}
                         variant="primary"
                         size="lg"
-                        loading={isSubmitting}
+                        isLoading={isSubmitting}
                         className="w-full"
                     >
                         {!isConnected ? 'Connect Wallet' : !isUnlocked ? 'Withdraw Locked' : 'Withdraw STX'}
@@ -164,9 +165,5 @@ export default function WithdrawForm() {
                 </form>
             </CardContent>
         </Card>
-    );
-}
-            </form >
-        </div >
     );
 }

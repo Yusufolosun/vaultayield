@@ -6,7 +6,8 @@ import { depositToVault } from '@/lib/stacks/transactions';
 import { useWallet } from '@/contexts/WalletContext';
 import { ArrowDown, Info, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { Button, Input } from '@/components/ui';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
 
 export default function DepositForm() {
     const [amount, setAmount] = useState<string>('');
