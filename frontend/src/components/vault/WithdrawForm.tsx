@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 import { Card, CardHeader, CardContent, Button, Input } from '@/components/ui';
 
 export default function WithdrawForm() {
-    // ... stats, loading, position
     const [shares, setShares] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
