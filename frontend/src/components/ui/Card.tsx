@@ -5,11 +5,13 @@ export const Card: React.FC<{
     className?: string;
     shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
     border?: 'none' | 'subtle' | 'default' | 'vibrant';
+    hover?: boolean;
 }> = ({
     children,
     className = '',
     shadow = 'xl',
-    border = 'default'
+    border = 'default',
+    hover = false
 }) => {
         const shadows = {
             none: '',
@@ -26,8 +28,10 @@ export const Card: React.FC<{
             vibrant: 'border-2 border-blue-500/20 dark:border-blue-500/30'
         };
 
+        const hoverStyles = hover ? 'transition-all hover:scale-[1.01] cursor-pointer' : '';
+
         return (
-            <div className={`bg-white dark:bg-neutral-800 rounded-3xl ${borders[border]} ${shadows[shadow]} ${className}`}>
+            <div className={`bg-white dark:bg-neutral-800 rounded-3xl ${borders[border]} ${shadows[shadow]} ${hoverStyles} ${className}`}>
                 {children}
             </div>
         );
