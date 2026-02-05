@@ -21,3 +21,14 @@ export const CardHeader: React.FC<{ children: React.ReactNode; className?: strin
         </div>
     );
 };
+
+export const CardContent: React.FC<{ children: React.ReactNode; className?: string }> = ({
+    children,
+    className = ''
+}) => {
+    return (
+        <div className={`px-8 py-6 ${className}`}>
+            {children}
+        </div>
+    );
+};
