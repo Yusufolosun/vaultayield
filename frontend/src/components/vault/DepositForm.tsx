@@ -6,7 +6,7 @@ import { depositToVault } from '@/lib/stacks/transactions';
 import { useWallet } from '@/contexts/WalletContext';
 import { ArrowDown, Info, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { Button } from '@/components/ui';
+import { Button, Input } from '@/components/ui';
 
 export default function DepositForm() {
     const [amount, setAmount] = useState<string>('');
@@ -75,12 +75,12 @@ export default function DepositForm() {
                         </span>
                     </div>
                     <div className="relative group">
-                        <input
+                        <Input
                             type="number"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
                             placeholder="0.00"
-                            className="w-full bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl px-6 py-4 text-2xl font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                            sizeVariant="lg"
                         />
                         <div className="absolute right-4 top-1/2 -translate-y-1/2">
                             <Button
